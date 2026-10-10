@@ -1,0 +1,365 @@
+
+/* =================================
+   1. Global Settings
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f5ef;
+    color: #292720;
+    line-height: 1.7;
+}
+
+
+/* =================================
+   2. Header and Navigation
+================================= */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 8%;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #e9e4d9;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 27px;
+    color: #292720;
+    letter-spacing: 1px;
+}
+
+nav {
+    display: flex;
+    gap: 32px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555047;
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #a77b45;
+}
+
+
+/* =================================
+   3. Main Content
+================================= */
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+section {
+    margin-bottom: 80px;
+}
+
+
+/* =================================
+   4. Home / Hero Section
+================================= */
+
+#home {
+    min-height: 420px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 65px 70px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #eee3ce,
+            #f5ead8
+        );
+
+    border-radius: 18px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+#home::after {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    right: 80px;
+    top: 70px;
+
+    border: 1px solid rgba(120, 85, 45, 0.25);
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(120, 85, 45, 0.15) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(120, 85, 45, 0.15) 40px
+        );
+
+    transform: rotate(8deg);
+
+    pointer-events: none;
+}
+
+#home h2 {
+    font-size: 46px;
+    max-width: 600px;
+    margin-bottom: 20px;
+    color: #30291f;
+    position: relative;
+    z-index: 1;
+}
+
+#home p {
+    max-width: 600px;
+    margin-bottom: 15px;
+    font-size: 17px;
+    color: #655b4d;
+    position: relative;
+    z-index: 1;
+}
+
+#home a {
+    display: inline-block;
+
+    margin-top: 15px;
+    padding: 13px 30px;
+
+    background-color: #292720;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 6px;
+
+    font-weight: 600;
+
+    position: relative;
+    z-index: 1;
+
+    transition: background-color 0.3s;
+}
+
+#home a:hover {
+    background-color: #a77b45;
+}
+
+
+/* =================================
+   5. Section Headings
+================================= */
+
+section h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #30291f;
+}
+
+section h2::after {
+    content: "";
+    display: block;
+
+    width: 55px;
+    height: 3px;
+
+    margin-top: 12px;
+
+    background-color: #b58a53;
+}
+
+
+/* =================================
+   6. Learning Cards
+================================= */
+
+#basics,
+#rules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+#basics h2,
+#rules h2 {
+    grid-column: 1 / -1;
+}
+
+article {
+    background-color: #ffffff;
+
+    padding: 28px;
+
+    border: 1px solid #eee9df;
+    border-radius: 12px;
+
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+article:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+article h3 {
+    font-size: 19px;
+    margin-bottom: 14px;
+    color: #765a37;
+}
+
+article p {
+    font-size: 15px;
+    color: #6b665d;
+}
+
+
+/* =================================
+   7. Practice Section
+================================= */
+
+#practice {
+    text-align: center;
+
+    padding: 55px 30px;
+
+    background-color: #eee8dc;
+
+    border-radius: 16px;
+}
+
+#practice h2 {
+    margin-bottom: 20px;
+}
+
+#practice h2::after {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#practice p {
+    max-width: 650px;
+    margin: 0 auto 25px;
+
+    color: #655b4d;
+}
+
+#practice button {
+    padding: 14px 28px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #292720;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =================================
+   8. Footer
+================================= */
+
+footer {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    background-color: #292720;
+    color: #e9e2d5;
+
+    font-size: 14px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+
+/* =================================
+   9. Responsive Design
+================================= */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    main {
+        padding: 25px 18px;
+    }
+
+    #home {
+        padding: 45px 25px;
+    }
+
+    #home h2 {
+        font-size: 34px;
+    }
+
+    #home::after {
+        opacity: 0.3;
+        right: -100px;
+    }
+
+    #basics,
+    #rules {
+        grid-template-columns: 1fr;
+    }
+
+    section h2 {
+        font-size: 26px;
+    }
+}
