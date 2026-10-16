@@ -363,3 +363,124 @@ footer p {
         font-size: 26px;
     }
 }
+
+/* =================================
+   10. Page Visibility
+================================= */
+
+/* Hide learning content before clicking Start Learning */
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =================================
+   11. Home Page Button
+================================= */
+
+#home button {
+    display: inline-block;
+
+    margin-top: 15px;
+    padding: 15px 32px;
+
+    background-color: #292720;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+#home button:hover {
+    background-color: #a77b45;
+    transform: translateY(-2px);
+}
+
+
+/* =================================
+   12. Learning Page Header
+================================= */
+
+.learning-topbar {
+    padding: 35px 0 45px;
+    margin-bottom: 35px;
+
+    border-bottom: 1px solid #e5ded1;
+}
+
+.learning-topbar h2 {
+    font-size: 36px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+}
+
+.learning-topbar p {
+    color: #777064;
+    font-size: 16px;
+}
+
+
+/* =================================
+   13. Back to Home Button
+================================= */
+
+.back-button {
+    padding: 10px 20px;
+
+    border: 1px solid #c8b99f;
+    border-radius: 6px;
+
+    background-color: transparent;
+    color: #66543b;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #292720;
+    color: #ffffff;
+    border-color: #292720;
+}
+
+
+/* =================================
+   14. Learning Footer
+================================= */
+
+.learning-footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 30px;
+
+    border-top: 1px solid #e5ded1;
+}
+
+
+/* =================================
+   15. Responsive Adjustments
+================================= */
+
+@media (max-width: 768px) {
+
+    .learning-topbar h2 {
+        font-size: 28px;
+    }
+
+    .learning-topbar {
+        padding: 25px 0 30px;
+    }
+
+}
