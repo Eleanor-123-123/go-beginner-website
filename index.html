@@ -8,243 +8,735 @@
 
     <title>Go Beginner | Learn Go from Zero</title>
 
-    <meta name="description" content="Learn the basic rules of Go through interactive lessons and practice.">
+    <meta name="description"
+        content="Learn Go from zero through interactive lessons, demonstrations and practice.">
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Website Header -->
-    <header>
-        <h1>Go Beginner</h1>
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="site-header">
+
+        <a href="#" class="logo" onclick="showHome(event)">
+            Go Beginner<span>.</span>
+        </a>
+
+        <nav class="main-nav">
+            <a href="#" onclick="showHome(event)">Home</a>
+            <a href="#" onclick="showLearning(event)">Learning Center</a>
+        </nav>
+
     </header>
 
 
-    <main>
+    <!-- ==============================
+         HOME PAGE
+    =============================== -->
 
-        <!-- =========================
-             HOME PAGE
-        ========================== -->
+    <main id="home-page">
 
-        <section id="home">
+        <section class="hero">
 
-            <h2>Discover the World of Go</h2>
+            <div class="hero-content">
 
-            <p>
-                Go is more than just a board game.
-                It is a journey of logic, patience,
-                creativity and strategy.
-            </p>
+                <span class="eyebrow">YOUR JOURNEY STARTS HERE</span>
 
-            <p>
-                Start with the basics, understand the rules,
-                and gradually develop your own Go strategies.
-            </p>
+                <h1>Discover the World of Go</h1>
 
-            <button type="button" onclick="showLearning()">
-                Start Learning
-            </button>
+                <div class="hero-line"></div>
+
+                <p>
+                    Go is more than just a board game.
+                    It is a journey of logic, patience,
+                    creativity and strategy.
+                </p>
+
+                <p>
+                    Start with the basics, understand the rules,
+                    and gradually develop your own Go strategies.
+                </p>
+
+                <button class="primary-button"
+                    onclick="showLearning()">
+                    Start Learning
+                    <span>→</span>
+                </button>
+
+            </div>
+
+            <div class="hero-decoration">
+
+                <div class="mini-board">
+                    <div class="mini-stone black"></div>
+                    <div class="mini-stone white"></div>
+                    <div class="mini-stone black second"></div>
+                </div>
+
+            </div>
 
         </section>
 
 
-        <!-- =========================
-             LEARNING PAGE
-             Hidden when the website opens
-        ========================== -->
+        <section class="home-intro">
 
-        <div id="learning-content" hidden>
+            <span class="eyebrow">LEARN AT YOUR OWN PACE</span>
 
-            <!-- Learning Navigation -->
+            <h2>A Simple Way to Learn Go</h2>
 
-            <div class="learning-topbar">
+            <p>
+                From understanding the board to playing
+                your first game, explore Go step by step.
+            </p>
 
-                <button type="button" class="back-button"
-                    onclick="showHome()">
-                    ← Back to Home
-                </button>
-
-                <h2>Learning Center</h2>
-
-                <p>
-                    Follow the lessons step by step
-                    and discover how to play Go.
-                </p>
-
-            </div>
-
-
-            <!-- CHAPTER 1 -->
-
-            <section id="basics">
-
-                <h2>Chapter 1: Understanding Go</h2>
-
-                <article>
-                    <h3>1. The Go Board</h3>
-
-                    <p>
-                        A standard Go board consists of 19
-                        horizontal lines and 19 vertical lines,
-                        forming 361 intersections.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>2. Go Stones</h3>
-
-                    <p>
-                        Go is played with two types of stones:
-                        black and white. Black plays first,
-                        and players take turns placing stones
-                        on the intersections.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>3. Intersections</h3>
-
-                    <p>
-                        Stones must be placed on the
-                        intersections of the horizontal
-                        and vertical lines, not inside the squares.
-                    </p>
-                </article>
-
-            </section>
-
-
-            <!-- CHAPTER 2 -->
-
-            <section id="rules">
-
-                <h2>Chapter 2: Basic Rules of Go</h2>
-
-                <article>
-                    <h3>1. Liberties</h3>
-
-                    <p>
-                        A liberty is an empty intersection
-                        directly adjacent to a stone or
-                        a connected group of stones.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>2. Capturing Stones</h3>
-
-                    <p>
-                        When a stone or a connected group
-                        of stones has no remaining liberties,
-                        it is captured and removed from the board.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>3. Suicide Rule</h3>
-
-                    <p>
-                        A player generally cannot make a move
-                        that leaves their own group with no
-                        liberties, unless the move captures
-                        opposing stones.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>4. The Ko Rule</h3>
-
-                    <p>
-                        The Ko rule prevents players from
-                        immediately repeating a previous
-                        board position.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>5. Scoring and Winning</h3>
-
-                    <p>
-                        Players compete to control territory
-                        on the board. The winner is determined
-                        by the scoring rules used in the game.
-                    </p>
-                </article>
-
-            </section>
-
-
-            <!-- CHAPTER 3 -->
-
-            <section id="practice">
-
-                <h2>Chapter 3: Practice</h2>
-
-                <p>
-                    Now it is time to test your understanding
-                    of Go through practical exercises.
-                </p>
-
-                <button type="button">
-                    Interactive Exercises Coming Soon
-                </button>
-
-            </section>
-
-
-            <!-- Return Home -->
-
-            <div class="learning-footer">
-
-                <button type="button" class="back-button"
-                    onclick="showHome()">
-                    ← Return to Home
-                </button>
-
-            </div>
-
-        </div>
+        </section>
 
     </main>
 
 
-    <!-- Website Footer -->
+    <!-- ==============================
+         LEARNING CENTER
+    =============================== -->
 
-    <footer>
-        <p>Go Beginner | Learn Go from Zero</p>
-        <p>Explore the beauty of Go, one move at a time.</p>
+    <main id="learning-page" hidden>
+
+        <section class="learning-heading">
+
+            <button class="text-button" onclick="showHome()">
+                ← Back to Home
+            </button>
+
+            <span class="eyebrow">GO BEGINNER COURSE</span>
+
+            <h1>Learning Center</h1>
+
+            <p>
+                Three steps to understand and play Go.
+            </p>
+
+        </section>
+
+
+        <!-- CHAPTER NAVIGATION -->
+
+        <nav class="chapter-nav">
+
+            <button class="chapter-tab active"
+                data-chapter="1"
+                onclick="openChapter(1)">
+
+                <span>01</span>
+                Understanding Go
+
+            </button>
+
+            <button class="chapter-tab"
+                data-chapter="2"
+                onclick="openChapter(2)">
+
+                <span>02</span>
+                Liberties & Capturing
+
+            </button>
+
+            <button class="chapter-tab"
+                data-chapter="3"
+                onclick="openChapter(3)">
+
+                <span>03</span>
+                Play Go Yourself
+
+            </button>
+
+        </nav>
+
+
+        <!-- ==============================
+             CHAPTER 1
+        =============================== -->
+
+        <section id="chapter-1" class="chapter-content">
+
+            <div class="chapter-title">
+
+                <span class="eyebrow">CHAPTER 01</span>
+
+                <h2>Understanding the Go Board</h2>
+
+                <p>
+                    Before learning how to play,
+                    let's get familiar with the Go board
+                    and its basic elements.
+                </p>
+
+            </div>
+
+
+            <div class="lesson-grid">
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">01</span>
+
+                    <h3>The Go Board</h3>
+
+                    <p>
+                        A standard Go board has 19 horizontal
+                        and 19 vertical lines, forming
+                        361 intersections.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">02</span>
+
+                    <h3>Black and White Stones</h3>
+
+                    <p>
+                        Two players use black and white stones.
+                        Black traditionally makes the first move.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">03</span>
+
+                    <h3>Intersections and Star Points</h3>
+
+                    <p>
+                        Stones are placed on intersections.
+                        Star points help players recognize
+                        important board positions.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- INTERACTIVE BOARD DIAGRAM -->
+
+            <div class="demo-panel">
+
+                <div class="demo-heading">
+
+                    <div>
+                        <span class="eyebrow">BOARD EXPLORER</span>
+                        <h3>Explore a 19 × 19 Go Board</h3>
+                    </div>
+
+                    <span class="board-label">19 × 19</span>
+
+                </div>
+
+
+                <p class="demo-description">
+                    Click on any intersection to place a
+                    demonstration stone. Try both black
+                    and white stones.
+                </p>
+
+
+                <div class="board-controls">
+
+                    <button class="control-button active"
+                        id="black-tool"
+                        onclick="setDiagramColor('black')">
+
+                        Black Stone
+
+                    </button>
+
+                    <button class="control-button"
+                        id="white-tool"
+                        onclick="setDiagramColor('white')">
+
+                        White Stone
+
+                    </button>
+
+                    <button class="control-button"
+                        onclick="clearDiagram()">
+
+                        Reset Board
+
+                    </button>
+
+                </div>
+
+
+                <div class="board-wrapper">
+
+                    <div id="diagram-board"
+                        class="go-board board-19"
+                        aria-label="Interactive 19 by 19 Go board">
+                    </div>
+
+                </div>
+
+
+                <p class="board-caption">
+                    A traditional Go board with 19 horizontal
+                    and 19 vertical lines.
+                </p>
+
+            </div>
+
+
+            <div class="lesson-navigation">
+
+                <span>Chapter 1 of 3</span>
+
+                <button class="primary-button"
+                    onclick="openChapter(2)">
+
+                    Next Chapter →
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CHAPTER 2
+        =============================== -->
+
+        <section id="chapter-2"
+            class="chapter-content" hidden>
+
+            <div class="chapter-title">
+
+                <span class="eyebrow">CHAPTER 02</span>
+
+                <h2>Understanding Liberties and Capturing</h2>
+
+                <p>
+                    Learn how stones survive, connect,
+                    and capture opposing stones.
+                </p>
+
+            </div>
+
+
+            <div class="concept-grid">
+
+                <article class="lesson-card">
+
+                    <h3>What is a Liberty?</h3>
+
+                    <p>
+                        A liberty is an empty intersection
+                        directly connected to a stone
+                        horizontally or vertically.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <h3>What is Capturing?</h3>
+
+                    <p>
+                        When a stone or connected group
+                        loses all its liberties, it is
+                        captured and removed from the board.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- LIBERTY DEMONSTRATION -->
+
+            <div class="demo-panel">
+
+                <div class="demo-heading">
+
+                    <div>
+                        <span class="eyebrow">INTERACTIVE DEMONSTRATION</span>
+
+                        <h3>Discover the Liberties</h3>
+                    </div>
+
+                </div>
+
+
+                <p class="demo-description">
+                    Place a black stone in the center.
+                    The highlighted intersections show
+                    its available liberties.
+                </p>
+
+
+                <div class="demo-instructions">
+
+                    <span class="legend-dot black-dot"></span>
+                    Black stone
+
+                    <span class="legend-dot liberty-dot"></span>
+                    Available liberty
+
+                </div>
+
+
+                <div class="board-wrapper">
+
+                    <div id="liberty-board"
+                        class="go-board board-9"
+                        aria-label="Liberty demonstration board">
+                    </div>
+
+                </div>
+
+
+                <div class="demo-status" id="liberty-status"
+                    aria-live="polite">
+
+                    Select an intersection to place a black stone.
+
+                </div>
+
+
+                <div class="board-controls">
+
+                    <button class="control-button"
+                        onclick="resetLibertyDemo()">
+
+                        Reset Demonstration
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CAPTURING DEMONSTRATION -->
+
+            <div class="demo-panel">
+
+                <div class="demo-heading">
+
+                    <div>
+                        <span class="eyebrow">CAPTURING DEMONSTRATION</span>
+
+                        <h3>How Does Capturing Work?</h3>
+                    </div>
+
+                </div>
+
+
+                <p class="demo-description">
+                    Follow the steps to surround a white stone
+                    and remove its last remaining liberty.
+                </p>
+
+
+                <div class="capture-layout">
+
+                    <div class="capture-info">
+
+                        <span class="step-indicator"
+                            id="capture-step">
+
+                            STEP 1 / 4
+
+                        </span>
+
+                        <h4 id="capture-title">
+                            Start with a White Stone
+                        </h4>
+
+                        <p id="capture-description">
+                            A white stone is surrounded by
+                            empty intersections. These are
+                            its liberties.
+                        </p>
+
+
+                        <div class="capture-buttons">
+
+                            <button class="primary-button"
+                                onclick="nextCaptureStep()"
+                                id="capture-next">
+
+                                Next Step →
+
+                            </button>
+
+                            <button class="control-button"
+                                onclick="resetCaptureDemo()">
+
+                                Restart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="board-wrapper">
+
+                        <div id="capture-board"
+                            class="go-board board-9"
+                            aria-label="Stone capturing demonstration board">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="demo-status"
+                    id="capture-status"
+                    aria-live="polite">
+
+                    Watch how the liberties disappear.
+
+                </div>
+
+            </div>
+
+
+            <div class="lesson-navigation">
+
+                <button class="control-button"
+                    onclick="openChapter(1)">
+
+                    ← Previous Chapter
+
+                </button>
+
+                <span>Chapter 2 of 3</span>
+
+                <button class="primary-button"
+                    onclick="openChapter(3)">
+
+                    Next Chapter →
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CHAPTER 3
+        =============================== -->
+
+        <section id="chapter-3"
+            class="chapter-content" hidden>
+
+            <div class="chapter-title">
+
+                <span class="eyebrow">CHAPTER 03</span>
+
+                <h2>Play Go Yourself</h2>
+
+                <p>
+                    You have learned the basic rules.
+                    Now it is time to play!
+                </p>
+
+            </div>
+
+
+            <div class="game-introduction">
+
+                <div class="game-stat">
+
+                    <span>BLACK</span>
+                    <strong id="black-captures">0</strong>
+                    <small>Stones captured</small>
+
+                </div>
+
+
+                <div class="game-stat">
+
+                    <span>WHITE</span>
+                    <strong id="white-captures">0</strong>
+                    <small>Stones captured</small>
+
+                </div>
+
+
+                <div class="game-stat">
+
+                    <span>BOARD</span>
+                    <strong>9 × 9</strong>
+                    <small>Beginner board</small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PLAYABLE GO BOARD -->
+
+            <div class="demo-panel game-panel">
+
+                <div class="game-header">
+
+                    <div>
+
+                        <span class="eyebrow">YOUR FIRST GO GAME</span>
+
+                        <h3>Practice Board</h3>
+
+                    </div>
+
+
+                    <div class="turn-indicator">
+
+                        <span id="turn-stone"
+                            class="turn-stone black-stone">
+                        </span>
+
+                        <span id="turn-text">
+                            Black to play
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="demo-description">
+                    Click an empty intersection to place
+                    your stone. Players take turns.
+                    Try to capture your opponent's stones!
+                </p>
+
+
+                <div class="game-status"
+                    id="game-status"
+                    aria-live="polite">
+
+                    Black's turn.
+
+                </div>
+
+
+                <div class="board-wrapper playable-wrapper">
+
+                    <div id="play-board"
+                        class="go-board board-9 playable-board"
+                        aria-label="Playable 9 by 9 Go board">
+                    </div>
+
+                </div>
+
+
+                <div class="game-controls">
+
+                    <button class="control-button"
+                        onclick="undoMove()"
+                        id="undo-button">
+
+                        ← Undo
+
+                    </button>
+
+                    <button class="control-button"
+                        onclick="passTurn()">
+
+                        Pass
+
+                    </button>
+
+                    <button class="control-button"
+                        onclick="restartGame()">
+
+                        Restart Game
+
+                    </button>
+
+                </div>
+
+
+                <div class="game-rules">
+
+                    <h4>Rules in This Practice Game</h4>
+
+                    <ul>
+                        <li>Black plays first.</li>
+                        <li>Players take turns placing one stone.</li>
+                        <li>Captured groups are automatically removed.</li>
+                        <li>Suicide moves are not allowed.</li>
+                        <li>The Ko rule prevents immediate repetition.</li>
+                        <li>Two consecutive passes end the game.</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="lesson-navigation">
+
+                <button class="control-button"
+                    onclick="openChapter(2)">
+
+                    ← Previous Chapter
+
+                </button>
+
+                <span>Chapter 3 of 3</span>
+
+                <button class="primary-button"
+                    onclick="showHome()">
+
+                    Finish Learning ✓
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer class="site-footer">
+
+        <h3>Go Beginner.</h3>
+
+        <p>
+            Explore the beauty of Go,
+            one move at a time.
+        </p>
+
+        <p class="copyright">
+            © 2026 Go Beginner. Learn Go from Zero.
+        </p>
+
     </footer>
-
-
-    <!-- Page Switching Function -->
-
-    <script>
-
-        function showLearning() {
-
-            document.getElementById("home").hidden = true;
-
-            document.getElementById("learning-content").hidden = false;
-
-            window.scrollTo(0, 0);
-
-        }
-
-
-        function showHome() {
-
-            document.getElementById("learning-content").hidden = true;
-
-            document.getElementById("home").hidden = false;
-
-            window.scrollTo(0, 0);
-
-        }
-
-    </script>
 
 </body>
 
 </html>
+
 
