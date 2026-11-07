@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Learn the basics of Go, including the Go board, stones, intersections, and star points."
+    >
+
+    <title>Chapter 01 | Understanding Go</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+    <header class="site-header">
+
+        <a href="index.html" class="header-logo">
+            <div class="logo-icon">▲</div>
+
+            <div class="logo-text">
+                <span class="brand-name">GO BEGINNING</span>
+                <span class="brand-tagline">BUILDING NEW PATHS</span>
+            </div>
+        </a>
+
+        <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
+
+            <a href="chapter1.html" class="chapter-tab active">
+                <span>01</span> Understanding Go
+            </a>
+
+            <a href="chapter2.html" class="chapter-tab">
+                <span>02</span> Liberties & Capturing
+            </a>
+
+            <a href="chapter3.html" class="chapter-tab">
+                <span>09</span> Practice Board
+            </a>
+
+        </nav>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="chapter1.html" class="active">Learning Center</a>
+            <a href="about.html">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- ==============================
+         MAIN LEARNING CONTENT
+    =============================== -->
+    <main id="learning-page">
+
+        <!-- Course Progress -->
+        <div
+            class="learning-progress-bar"
+            aria-label="Course progress: Chapter 1 of 9"
+        >
+
+            <div class="progress-step current">
+                <span class="step-num">01</span>
+                <span>Understanding Go</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+                <span class="step-num">02</span>
+                <span>Liberties & Capturing</span>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+                <span class="step-num">03</span>
+                <span>Basic Rules</span>
+            </div>
+
+        </div>
+
+
+        <section class="chapter-content">
+
+            <!-- Chapter Introduction -->
+            <div class="chapter-title">
+
+                <span class="eyebrow">CHAPTER 01 · FOUNDATIONS</span>
+
+                <h1>Understanding the Go Board</h1>
+
+                <p>
+                    Before playing Go, let's understand the board,
+                    the stones, and where each move is placed.
+                </p>
+
+            </div>
+
+
+            <!-- Basic Concepts -->
+            <div class="lesson-grid">
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">01</span>
+
+                    <h3>The Go Board</h3>
+
+                    <p>
+                        A standard Go board has 19 horizontal and
+                        19 vertical lines, forming 361 intersections.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">02</span>
+
+                    <h3>Black and White Stones</h3>
+
+                    <p>
+                        Two players use black and white stones.
+                        Black traditionally makes the first move.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">03</span>
+
+                    <h3>Intersections and Star Points</h3>
+
+                    <p>
+                        Stones are placed on intersections rather
+                        than inside the squares. Star points are
+                        marked positions that help players recognize
+                        important areas of the board.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- Interactive Board -->
+            <div class="demo-panel">
+
+                <div class="demo-heading">
+
+                    <h3>Explore a 19 × 19 Go Board</h3>
+
+                    <p>
+                        Select a stone color and click any intersection
+                        to place a stone on the board.
+                    </p>
+
+                </div>
+
+
+                <!-- Board Controls -->
+                <div class="board-controls">
+
+                    <button
+                        type="button"
+                        class="control-button active"
+                        id="black-tool"
+                        onclick="setDiagramColor('black')"
+                    >
+                        Black Stone
+                    </button>
+
+                    <button
+                        type="button"
+                        class="control-button"
+                        id="white-tool"
+                        onclick="setDiagramColor('white')"
+                    >
+                        White Stone
+                    </button>
+
+                    <button
+                        type="button"
+                        class="control-button"
+                        onclick="clearDiagram()"
+                    >
+                        Reset Board
+                    </button>
+
+                </div>
+
+
+                <!-- Go Board -->
+                <div class="board-wrapper">
+
+                    <div
+                        id="diagram-board"
+                        class="go-board board-19"
+                        role="group"
+                        aria-label="Interactive 19 by 19 Go board"
+                        aria-describedby="diagram-instructions"
+                    ></div>
+
+                </div>
+
+
+                <p
+                    id="diagram-instructions"
+                    class="board-instructions"
+                >
+                    How to use: Choose Black or White, then click
+                    an intersection to place a stone. Select Reset
+                    Board to clear all stones.
+                </p>
+
+            </div>
+
+
+            <!-- Chapter Navigation -->
+            <div class="lesson-navigation">
+
+                <span>Chapter 01 of 09</span>
+
+                <a href="chapter2.html" class="primary-button">
+                    Next Chapter →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
