@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Learn Go liberties, connected groups, and capturing through interactive demonstrations."
+    >
+
+    <title>Chapter 02 | Liberties & Capturing</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ==================================
+         HEADER
+    =================================== -->
+
+    <header class="site-header">
+
+        <a href="index.html" class="header-logo">
+
+            <div class="logo-icon">▲</div>
+
+            <div class="logo-text">
+                <span class="brand-name">GO BEGINNING</span>
+                <span class="brand-tagline">BUILDING NEW PATHS</span>
+            </div>
+
+        </a>
+
+
+        <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
+
+            <a href="chapter1.html" class="chapter-tab">
+                <span>01</span> Understanding Go
+            </a>
+
+            <a href="chapter2.html" class="chapter-tab active" aria-current="page">
+                <span>02</span> Liberties & Capturing
+            </a>
+
+            <a href="chapter3.html" class="chapter-tab">
+                <span>09</span> Practice Board
+            </a>
+
+        </nav>
+
+
+        <nav class="main-nav" aria-label="Main navigation">
+
+            <a href="index.html">Home</a>
+
+            <a href="chapter1.html" class="active">Learning Center</a>
+
+            <a href="about.html">About</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ==================================
+         MAIN LEARNING CONTENT
+    =================================== -->
+
+    <main id="learning-page">
+
+
+        <!-- ==================================
+             COURSE PROGRESS
+        =================================== -->
+
+        <div
+            class="learning-progress-bar"
+            aria-label="Course progress: Chapter 2 of 9"
+        >
+
+            <div class="progress-step completed">
+
+                <span class="step-num">✓</span>
+
+                <span>Understanding Go</span>
+
+            </div>
+
+
+            <div class="progress-line active"></div>
+
+
+            <div class="progress-step current">
+
+                <span class="step-num">02</span>
+
+                <span>Liberties & Capturing</span>
+
+            </div>
+
+
+            <div class="progress-line"></div>
+
+
+            <div class="progress-step">
+
+                <span class="step-num">03</span>
+
+                <span>Basic Rules</span>
+
+            </div>
+
+        </div>
+
+
+
+        <section class="chapter-content">
+
+
+            <!-- ==================================
+                 CHAPTER INTRODUCTION
+            =================================== -->
+
+            <div class="chapter-title">
+
+                <span class="eyebrow">CHAPTER 02 · CORE MECHANICS</span>
+
+                <h1>Understanding Liberties and Capturing</h1>
+
+                <p>
+                    Discover how stones breathe, how groups stay alive,
+                    and how players capture their opponent's stones.
+                </p>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 LEARNING OBJECTIVES
+            =================================== -->
+
+            <div class="lesson-grid">
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">01</span>
+
+                    <h3>Understand Liberties</h3>
+
+                    <p>
+                        Learn what an empty adjacent intersection is
+                        and how to count the liberties of a stone.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">02</span>
+
+                    <h3>Connect Your Stones</h3>
+
+                    <p>
+                        Understand how horizontally or vertically
+                        connected stones form a group and share liberties.
+                    </p>
+
+                </article>
+
+
+                <article class="lesson-card">
+
+                    <span class="lesson-number">03</span>
+
+                    <h3>Capture Opponents</h3>
+
+                    <p>
+                        Learn how to surround an opposing stone or group
+                        and remove it when its final liberty disappears.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 LESSON 1: LIBERTIES
+            =================================== -->
+
+            <section class="demo-panel" aria-labelledby="liberty-heading">
+
+                <div class="demo-heading">
+
+                    <span class="eyebrow">LESSON 01</span>
+
+                    <h2 id="liberty-heading">Discover Liberties</h2>
+
+                    <p>
+                        Every stone needs liberties to remain on the board.
+                        Explore the board and observe how empty intersections
+                        determine a stone's freedom.
+                    </p>
+
+                </div>
+
+
+                <!-- Interactive Instructions -->
+
+                <div class="board-instructions">
+
+                    <strong>How to explore:</strong>
+
+                    <p>
+                        Select an intersection to place a stone.
+                        Observe the highlighted empty intersections
+                        around the stone.
+                    </p>
+
+                </div>
+
+
+                <!-- Liberty Board -->
+
+                <div class="board-wrapper">
+
+                    <div
+                        id="liberty-board"
+                        class="go-board board-9"
+                        role="group"
+                        aria-label="Interactive 9 by 9 liberty demonstration board"
+                    ></div>
+
+                </div>
+
+
+                <!-- Liberty Status -->
+
+                <div
+                    id="liberty-status"
+                    role="status"
+                    aria-live="polite"
+                    style="
+                        text-align: center;
+                        margin-top: 20px;
+                        font-weight: 600;
+                    "
+                >
+                    Select an intersection to place a stone.
+                </div>
+
+
+                <!-- Reset Control -->
+
+                <div class="board-controls" style="justify-content: center; margin-top: 18px;">
+
+                    <button
+                        type="button"
+                        class="control-button"
+                        onclick="resetLibertyDemo()"
+                    >
+                        Reset Demonstration
+                    </button>
+
+                </div>
+
+
+                <!-- Key Concept -->
+
+                <div class="concept-note">
+
+                    <strong>Remember:</strong>
+
+                    A stone's liberties are the empty intersections
+                    directly connected to it horizontally or vertically.
+                    Diagonal intersections do not count.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 LESSON 2: CAPTURING
+            =================================== -->
+
+            <section class="demo-panel" aria-labelledby="capture-heading">
+
+                <div class="demo-heading">
+
+                    <span class="eyebrow">LESSON 02</span>
+
+                    <h2 id="capture-heading">Understanding Capturing</h2>
+
+                    <p>
+                        Follow a step-by-step demonstration to see
+                        how Black surrounds White and removes its
+                        final liberty.
+                    </p>
+
+                </div>
+
+
+                <!-- Capture Board -->
+
+                <div class="board-wrapper">
+
+                    <div
+                        id="capture-board"
+                        class="go-board board-9"
+                        role="group"
+                        aria-label="Go stone capturing demonstration board"
+                    ></div>
+
+                </div>
+
+
+                <!-- Capture Explanation -->
+
+                <div class="capture-explanation">
+
+                    <div
+                        id="capture-step"
+                        class="eyebrow"
+                        aria-live="polite"
+                    >
+                        STEP 1 / 5
+                    </div>
+
+
+                    <h3 id="capture-title">
+                        Start with a White Stone
+                    </h3>
+
+
+                    <p
+                        id="capture-description"
+                        aria-live="polite"
+                    >
+                        A white stone has 4 liberties.
+                    </p>
+
+                </div>
+
+
+                <!-- Capture Controls -->
+
+                <div class="board-controls" style="justify-content: center; margin-top: 22px;">
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        onclick="nextCaptureStep()"
+                        id="capture-next"
+                    >
+                        Next Step →
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="control-button"
+                        onclick="resetCaptureDemo()"
+                    >
+                        Restart
+                    </button>
+
+                </div>
+
+
+                <!-- Key Rule -->
+
+                <div class="concept-note">
+
+                    <strong>Important Rule:</strong>
+
+                    When a stone or connected group has no remaining
+                    liberties, it is captured and removed from the board.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 CHAPTER SUMMARY
+            =================================== -->
+
+            <section class="lesson-card chapter-summary">
+
+                <span class="eyebrow">CHAPTER SUMMARY</span>
+
+                <h2>What Have You Learned?</h2>
+
+                <p>
+                    You now understand the relationship between
+                    stones, liberties, connected groups, and capturing.
+                </p>
+
+                <ul>
+
+                    <li>
+                        Liberties are empty adjacent intersections.
+                    </li>
+
+                    <li>
+                        Connected stones share their liberties.
+                    </li>
+
+                    <li>
+                        A group with no liberties is captured.
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 CHAPTER NAVIGATION
+            =================================== -->
+
+            <div class="lesson-navigation">
+
+                <a
+                    href="chapter1.html"
+                    class="control-button"
+                >
+                    ← Previous Chapter
+                </a>
+
+
+                <span>Chapter 02 of 09</span>
+
+
+                <a
+                    href="chapter3.html"
+                    class="primary-button"
+                >
+                    Next Chapter →
+                </a>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

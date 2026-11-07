@@ -1,69 +1,11 @@
 
 /* ==========================================
-   GO BEGINNER
-   Interactive Go Learning Platform
+   GO BEGINNER - Multi-page Cyber-Zen JS
 ========================================== */
 
 
 /* ==========================================
-   1. PAGE NAVIGATION
-========================================== */
-
-function showHome(event) {
-
-    if (event) event.preventDefault();
-
-    document.getElementById("home-page").hidden = false;
-    document.getElementById("learning-page").hidden = true;
-
-    window.scrollTo(0, 0);
-}
-
-
-function showLearning(event) {
-
-    if (event) event.preventDefault();
-
-    document.getElementById("home-page").hidden = true;
-    document.getElementById("learning-page").hidden = false;
-
-    openChapter(1);
-
-    window.scrollTo(0, 0);
-}
-
-
-function openChapter(number) {
-
-    // Hide all chapters
-    document.querySelectorAll(".chapter-content").forEach(chapter => {
-        chapter.hidden = true;
-    });
-
-    // Display selected chapter
-    const selected = document.getElementById(`chapter-${number}`);
-
-    if (!selected) return;
-
-    selected.hidden = false;
-
-    // Update navigation tabs
-    document.querySelectorAll(".chapter-tab").forEach(tab => {
-
-        tab.classList.remove("active");
-
-        if (Number(tab.dataset.chapter) === number) {
-            tab.classList.add("active");
-        }
-
-    });
-
-    window.scrollTo(0, 0);
-}
-
-
-/* ==========================================
-   2. BOARD UTILITIES
+   1. BASIC BOARD FUNCTIONS
 ========================================== */
 
 function createEmptyBoard(size) {
@@ -102,30 +44,35 @@ function getNeighbors(row, col, size) {
     return directions
         .map(([dr, dc]) => [row + dr, col + dc])
         .filter(([r, c]) =>
-            r >= 0 && r < size &&
-            c >= 0 && c < size
+            r >= 0 &&
+            r < size &&
+            c >= 0 &&
+            c < size
         );
 
 }
 
 
-/*
-   Generate a visual Go board.
+/* ==========================================
+   2. BOARD RENDERING
+========================================== */
 
-   Each intersection is represented
-   by one HTML button.
-*/
-
-function renderBoard(container, board, onPointClick, options = {}) {
+function renderBoard(
+    container,
+    board,
+    onPointClick,
+    options = {}
+) {
 
     const size = board.length;
 
     container.innerHTML = "";
 
-    container.style.gridTemplateRows =
+    container.style.gridTemplateColumns =
         `repeat(${size}, minmax(0, 1fr))`;
 
-    container.style.aspectRatio = "1 / 1";
+    container.style.gridTemplateRows =
+        `repeat(${size}, minmax(0, 1fr))`;
 
     const starPoints = size === 19
         ? [3, 9, 15]
@@ -145,12 +92,11 @@ function renderBoard(container, board, onPointClick, options = {}) {
             point.dataset.row = row;
             point.dataset.col = col;
 
-            point.setAttribute(
-                "aria-label",
-                `Intersection row ${row + 1}, column ${col + 1}`
-            );
 
-            // Star points
+            // --------------------------------------
+            // Draw star points
+            // --------------------------------------
+
             if (
                 starPoints.includes(row) &&
                 starPoints.includes(col)
@@ -158,12 +104,10 @@ function renderBoard(container, board, onPointClick, options = {}) {
 
                 const star = document.createElement("span");
 
-                star.className = "star-marker";
-
                 Object.assign(star.style, {
                     position: "absolute",
-                    width: "20%",
-                    height: "20%",
+                    width: size === 19 ? "24%" : "20%",
+                    height: size === 19 ? "24%" : "20%",
                     background: "#59432a",
                     borderRadius: "50%",
                     zIndex: "2",
@@ -174,20 +118,30 @@ function renderBoard(container, board, onPointClick, options = {}) {
 
             }
 
-            // Existing stone
+
+            // --------------------------------------
+            // Draw stones
+            // --------------------------------------
+
             const stone = board[row][col];
 
             if (stone) {
 
-                const stoneElement = document.createElement("span");
+                const stoneElement =
+                    document.createElement("span");
 
-                stoneElement.className = `stone ${stone}`;
+                stoneElement.className =
+                    `stone ${stone}`;
 
                 point.appendChild(stoneElement);
 
             }
 
+
+            // --------------------------------------
             // Highlight liberties
+            // --------------------------------------
+
             if (
                 options.liberties &&
                 options.liberties.has(`${row},${col}`)
@@ -197,7 +151,11 @@ function renderBoard(container, board, onPointClick, options = {}) {
 
             }
 
-            // Highlight the last move
+
+            // --------------------------------------
+            // Mark the last move
+            // --------------------------------------
+
             if (
                 options.lastMove &&
                 options.lastMove.row === row &&
@@ -212,7 +170,11 @@ function renderBoard(container, board, onPointClick, options = {}) {
 
             }
 
-            // Click event
+
+            // --------------------------------------
+            // Handle point clicks
+            // --------------------------------------
+
             point.addEventListener("click", () => {
 
                 onPointClick(row, col);
@@ -229,8 +191,7 @@ function renderBoard(container, board, onPointClick, options = {}) {
 
 
 /* ==========================================
-   3. CHAPTER 1
-   BOARD EXPLORER
+   3. CHAPTER 1 - GO BOARD EXPLORER
 ========================================== */
 
 let diagramBoard = createEmptyBoard(19);
@@ -238,51 +199,150 @@ let diagramBoard = createEmptyBoard(19);
 let diagramColor = "black";
 
 
-function setDiagramColor(color) {
+// ------------------------------------------
+// Stone Cursor Preview
+// ------------------------------------------
 
-    diagramColor = color;
+let diagramCursor = null;
 
-    document.getElementById("black-tool")
-        .classList.toggle("active", color === "black");
 
-    document.getElementById("white-tool")
-        .classList.toggle("active", color === "white");
+// Create the custom stone cursor
+
+function initDiagramStoneCursor() {
+
+    const board = document.getElementById("diagram-board");
+
+    if (!board) return;
+
+    // Prevent creating duplicate cursors
+    if (diagramCursor) return;
+
+    // Create the cursor element
+    diagramCursor = document.createElement("div");
+
+    diagramCursor.className =
+        `stone-cursor-preview ${diagramColor}`;
+
+    document.body.appendChild(diagramCursor);
+
+
+    // Show the stone cursor when entering the board
+
+    board.addEventListener("pointerenter", (event) => {
+
+        if (event.pointerType !== "mouse") return;
+
+        diagramCursor.style.display = "block";
+
+    });
+
+
+    // Make the stone follow the mouse
+
+    board.addEventListener("pointermove", (event) => {
+
+        // Only use the custom cursor for a mouse
+        if (event.pointerType !== "mouse") {
+
+            diagramCursor.style.display = "none";
+
+            return;
+
+        }
+
+        diagramCursor.style.display = "block";
+
+        diagramCursor.style.left = `${event.clientX}px`;
+
+        diagramCursor.style.top = `${event.clientY}px`;
+
+    });
+
+
+    // Hide the stone cursor when leaving the board
+
+    board.addEventListener("pointerleave", () => {
+
+        diagramCursor.style.display = "none";
+
+    });
 
 }
 
 
-function placeDiagramStone(row, col) {
+// Update the cursor color
 
-    // Clicking an occupied point removes its stone
-    if (diagramBoard[row][col]) {
+function updateDiagramCursorColor() {
 
-        diagramBoard[row][col] = null;
+    if (!diagramCursor) return;
 
-    } else {
+    diagramCursor.classList.remove("black", "white");
 
-        diagramBoard[row][col] = diagramColor;
+    diagramCursor.classList.add(diagramColor);
+
+}
+
+
+// Change the selected stone color
+
+function setDiagramColor(color) {
+
+    diagramColor = color;
+
+    const bTool = document.getElementById("black-tool");
+
+    const wTool = document.getElementById("white-tool");
+
+    if (bTool) {
+
+        bTool.classList.toggle("active", color === "black");
 
     }
+
+    if (wTool) {
+
+        wTool.classList.toggle("active", color === "white");
+
+    }
+
+    // Synchronize the mouse cursor color
+    updateDiagramCursorColor();
+
+}
+
+
+// Place a stone on the diagram board
+
+function placeDiagramStone(row, col) {
+
+    diagramBoard[row][col] =
+        diagramBoard[row][col] ? null : diagramColor;
 
     drawDiagramBoard();
 
 }
 
 
+// Draw the Chapter 1 board
+
 function drawDiagramBoard() {
 
     const container = document.getElementById("diagram-board");
 
-    if (!container) return;
+    if (container) {
 
-    renderBoard(
-        container,
-        diagramBoard,
-        placeDiagramStone
-    );
+        renderBoard(
+            container,
+            diagramBoard,
+            placeDiagramStone
+        );
+
+    }
 
 }
 
+
+// Reset the Chapter 1 board
 
 function clearDiagram() {
 
@@ -294,18 +354,15 @@ function clearDiagram() {
 
 
 /* ==========================================
-   4. LIBERTY CALCULATION
+   4. CHAPTER 2 - LIBERTIES & CAPTURING
 ========================================== */
 
-/*
-   Find all stones connected to a given stone.
 
-   Stones are connected horizontally
-   and vertically, NOT diagonally.
+/* ------------------------------------------
+   4.1 FIND CONNECTED GROUPS AND LIBERTIES
+------------------------------------------ */
 
-   Also calculate all empty intersections
-   adjacent to the connected group.
-*/
+// Find a connected group and all its liberties.
 
 function getGroup(board, startRow, startCol) {
 
@@ -332,25 +389,32 @@ function getGroup(board, startRow, startCol) {
 
     visited.add(`${startRow},${startCol}`);
 
+
     while (queue.length > 0) {
 
         const [row, col] = queue.shift();
 
         stones.push([row, col]);
 
-        const neighbors = getNeighbors(row, col, size);
-
-        for (const [r, c] of neighbors) {
+        for (const [r, c] of getNeighbors(row, col, size)) {
 
             const key = `${r},${c}`;
 
             const neighborColor = board[r][c];
 
+
+            // Empty intersections are liberties
+
             if (neighborColor === null) {
 
                 liberties.add(key);
 
-            } else if (
+            }
+
+            // Connected stones of the same color
+            // belong to the same group.
+
+            else if (
                 neighborColor === color &&
                 !visited.has(key)
             ) {
@@ -373,29 +437,239 @@ function getGroup(board, startRow, startCol) {
 }
 
 
-/* ==========================================
-   5. CHAPTER 2
-   LIBERTY DEMONSTRATION
-========================================== */
+/* ------------------------------------------
+   4.2 LIBERTY BOARD STATE
+------------------------------------------ */
+
+// Create the liberty demonstration board.
 
 let libertyBoard = createEmptyBoard(9);
 
 
+// Black always plays first.
+
+let libertyCurrentPlayer = "black";
+
+
+// Currently selected stone.
+
+let libertySelected = null;
+
+
+// Captured stone counts.
+
+let libertyBlackCaptures = 0;
+
+let libertyWhiteCaptures = 0;
+
+
+// Feedback messages.
+
+let libertyNotice = "";
+
+
+/* ------------------------------------------
+   4.3 HANDLE BOARD INTERACTIONS
+------------------------------------------ */
+
 function placeLibertyStone(row, col) {
 
-    // Only one black demonstration stone
-    if (libertyBoard.flat().some(stone => stone !== null)) {
+
+    // --------------------------------------
+    // Clicking an existing stone
+    // --------------------------------------
+
+    // Select the stone's entire connected group
+    // and display its shared liberties.
+
+    if (libertyBoard[row][col] !== null) {
+
+        libertySelected = {
+            row,
+            col
+        };
+
+        libertyNotice = "";
+
+        drawLibertyBoard();
 
         return;
 
     }
 
-    libertyBoard[row][col] = "black";
+
+    // --------------------------------------
+    // Prepare a temporary board
+    // --------------------------------------
+
+    // We use a temporary board so that
+    // illegal moves cannot modify the real board.
+
+    const candidate = cloneBoard(libertyBoard);
+
+    const color = libertyCurrentPlayer;
+
+    const opponent =
+        color === "black" ? "white" : "black";
+
+
+    // Place the new stone.
+
+    candidate[row][col] = color;
+
+
+    // --------------------------------------
+    // Check adjacent opponent groups
+    // --------------------------------------
+
+    const capturedGroups = [];
+
+    const checked = new Set();
+
+
+    for (const [r, c] of getNeighbors(row, col, 9)) {
+
+        if (candidate[r][c] !== opponent) {
+
+            continue;
+
+        }
+
+        const key = `${r},${c}`;
+
+        if (checked.has(key)) {
+
+            continue;
+
+        }
+
+
+        // Find the entire connected opponent group.
+
+        const group = getGroup(candidate, r, c);
+
+
+        // Mark every stone in this group as checked.
+
+        group.stones.forEach(([gr, gc]) => {
+
+            checked.add(`${gr},${gc}`);
+
+        });
+
+
+        // A group with zero liberties is captured.
+
+        if (group.liberties.size === 0) {
+
+            capturedGroups.push(...group.stones);
+
+        }
+
+    }
+
+
+    // --------------------------------------
+    // Remove captured opponent stones
+    // --------------------------------------
+
+    capturedGroups.forEach(([r, c]) => {
+
+        candidate[r][c] = null;
+
+    });
+
+
+    // --------------------------------------
+    // Check for suicidal moves
+    // --------------------------------------
+
+    const newGroup = getGroup(
+        candidate,
+        row,
+        col
+    );
+
+
+    // A move is illegal if the new group
+    // has no liberties and captures nothing.
+
+    if (
+        newGroup.liberties.size === 0 &&
+        capturedGroups.length === 0
+    ) {
+
+        libertyNotice =
+            "Illegal move: this stone would have no liberties.";
+
+        drawLibertyBoard();
+
+        return;
+
+    }
+
+
+    // --------------------------------------
+    // Save the new board
+    // --------------------------------------
+
+    libertyBoard = candidate;
+
+    libertySelected = {
+        row,
+        col
+    };
+
+
+    // --------------------------------------
+    // Update captured stone counts
+    // --------------------------------------
+
+    if (color === "black") {
+
+        libertyBlackCaptures += capturedGroups.length;
+
+    } else {
+
+        libertyWhiteCaptures += capturedGroups.length;
+
+    }
+
+
+    // --------------------------------------
+    // Display move feedback
+    // --------------------------------------
+
+    if (capturedGroups.length > 0) {
+
+        libertyNotice =
+            `${color.toUpperCase()} captured ` +
+            `${capturedGroups.length} stone(s)!`;
+
+    } else {
+
+        libertyNotice = "";
+
+    }
+
+
+    // --------------------------------------
+    // Switch players
+    // --------------------------------------
+
+    libertyCurrentPlayer = opponent;
+
+
+    // Redraw the board.
 
     drawLibertyBoard();
 
 }
 
+
+/* ------------------------------------------
+   4.4 DRAW THE LIBERTY BOARD
+------------------------------------------ */
 
 function drawLibertyBoard() {
 
@@ -403,47 +677,157 @@ function drawLibertyBoard() {
 
     if (!container) return;
 
+    const statusEl = document.getElementById("liberty-status");
+
+
+    // Set of highlighted liberty intersections.
+
     let highlighted = new Set();
 
-    const existingStone = libertyBoard.flat().some(
-        stone => stone !== null
-    );
+    let statusMessage = "";
 
-    if (existingStone) {
 
-        let row = libertyBoard.findIndex(
-            line => line.includes("black")
-        );
+    // --------------------------------------
+    // Find the selected group's liberties
+    // --------------------------------------
 
-        let col = libertyBoard[row].indexOf("black");
+    if (libertySelected) {
 
-        const group = getGroup(libertyBoard, row, col);
+        const { row, col } = libertySelected;
 
-        highlighted = group.liberties;
+        const selectedColor = libertyBoard[row][col];
 
-        document.getElementById("liberty-status").textContent =
-            `This black stone has ${highlighted.size} liberties remaining.`;
+
+        // Check that the selected stone still exists.
+
+        if (selectedColor !== null) {
+
+            const group = getGroup(
+                libertyBoard,
+                row,
+                col
+            );
+
+
+            // Highlight every liberty of the group.
+
+            highlighted = group.liberties;
+
+
+            statusMessage =
+                `Selected ${selectedColor.toUpperCase()} group: ` +
+                `${group.stones.length} stone(s), ` +
+                `${group.liberties.size} liberties. `;
+
+        }
+
+    }
+
+
+    // --------------------------------------
+    // Display board information
+    // --------------------------------------
+
+    const occupiedCount =
+        libertyBoard
+            .flat()
+            .filter(stone => stone !== null)
+            .length;
+
+
+    if (occupiedCount === 0) {
+
+        statusMessage =
+            "The board is empty. Black plays first. " +
+            "Click any intersection to place a stone.";
 
     } else {
 
-        document.getElementById("liberty-status").textContent =
-            "Select an intersection to place a black stone.";
+        statusMessage +=
+            `${libertyCurrentPlayer.toUpperCase()} to play next. `;
 
     }
+
+
+    // --------------------------------------
+    // Display captured stone information
+    // --------------------------------------
+
+    statusMessage +=
+        `Captured — Black: ${libertyBlackCaptures}, ` +
+        `White: ${libertyWhiteCaptures}.`;
+
+
+    // --------------------------------------
+    // Display additional feedback
+    // --------------------------------------
+
+    if (libertyNotice) {
+
+        statusMessage =
+            `${libertyNotice} ${statusMessage}`;
+
+    }
+
+
+    if (statusEl) {
+
+        statusEl.textContent = statusMessage;
+
+    }
+
+
+    // --------------------------------------
+    // Render the board
+    // --------------------------------------
 
     renderBoard(
         container,
         libertyBoard,
         placeLibertyStone,
-        { liberties: highlighted }
+        {
+            liberties: highlighted,
+            lastMove: libertySelected
+        }
     );
 
 }
 
 
+/* ------------------------------------------
+   4.5 RESET THE LIBERTY DEMONSTRATION
+------------------------------------------ */
+
 function resetLibertyDemo() {
 
+    // Clear all stones.
+
     libertyBoard = createEmptyBoard(9);
+
+
+    // Black starts again.
+
+    libertyCurrentPlayer = "black";
+
+
+    // Clear selected stone.
+
+    libertySelected = null;
+
+
+    // Reset captured stone counts.
+
+    libertyBlackCaptures = 0;
+
+    libertyWhiteCaptures = 0;
+
+
+    // Clear feedback messages.
+
+    libertyNotice = "";
+
+
+    // Redraw the empty board.
 
     drawLibertyBoard();
 
@@ -451,96 +835,49 @@ function resetLibertyDemo() {
 
 
 /* ==========================================
-   6. CHAPTER 2
-   CAPTURING DEMONSTRATION
+   5. CHAPTER 2 - CAPTURE DEMONSTRATION
 ========================================== */
-
-/*
-   The white stone starts at the center.
-
-   Black gradually occupies its four liberties.
-
-   When the last liberty disappears,
-   the white stone is captured.
-*/
 
 const captureSteps = [
 
     {
         title: "Start with a White Stone",
-
-        description:
-            "The white stone has four liberties: " +
-            "one above, one below, one on the left, " +
-            "and one on the right.",
-
+        description: "The white stone has four liberties.",
         black: [],
-
         white: [[4, 4]],
-
         captured: false
-
     },
 
     {
-        title: "Black Takes the First Liberty",
-
-        description:
-            "Black places a stone above the white stone. " +
-            "The white stone now has three liberties.",
-
+        title: "Black Takes First Liberty",
+        description: "Black places a stone above.",
         black: [[3, 4]],
-
         white: [[4, 4]],
-
         captured: false
-
     },
 
     {
-        title: "Black Takes the Second Liberty",
-
-        description:
-            "Black places another stone to the left. " +
-            "Only two liberties remain.",
-
+        title: "Black Takes Second Liberty",
+        description: "Black places a stone to the left.",
         black: [[3, 4], [4, 3]],
-
         white: [[4, 4]],
-
         captured: false
-
     },
 
     {
         title: "Only One Liberty Remains",
-
-        description:
-            "Black occupies the intersection below " +
-            "the white stone. It now has only one liberty.",
-
+        description: "Black occupies the bottom intersection.",
         black: [[3, 4], [4, 3], [5, 4]],
-
         white: [[4, 4]],
-
         captured: false
-
     },
 
     {
         title: "White Stone Captured!",
-
-        description:
-            "Black takes the final liberty. " +
-            "The white stone has no liberties and " +
-            "is removed from the board.",
-
+        description: "Black takes the final liberty.",
         black: [[3, 4], [4, 3], [5, 4], [4, 5]],
-
         white: [],
-
         captured: true
-
     }
 
 ];
@@ -548,6 +885,8 @@ const captureSteps = [
 
 let captureStepIndex = 0;
 
+
+// Draw the capture demonstration
 
 function drawCaptureBoard() {
 
@@ -559,11 +898,13 @@ function drawCaptureBoard() {
 
     const board = createEmptyBoard(9);
 
+
     step.black.forEach(([r, c]) => {
 
         board[r][c] = "black";
 
     });
+
 
     step.white.forEach(([r, c]) => {
 
@@ -571,28 +912,69 @@ function drawCaptureBoard() {
 
     });
 
-    renderBoard(container, board, () => {});
 
-    // Update step information
-    document.getElementById("capture-step").textContent =
-        `STEP ${captureStepIndex + 1} / ${captureSteps.length}`;
+    renderBoard(
+        container,
+        board,
+        () => {}
+    );
 
-    document.getElementById("capture-title").textContent =
-        step.title;
 
-    document.getElementById("capture-description").textContent =
-        step.description;
+    const stepEl = document.getElementById("capture-step");
 
-    document.getElementById("capture-status").textContent =
-        step.captured
+    const titleEl = document.getElementById("capture-title");
+
+    const descriptionEl =
+        document.getElementById("capture-description");
+
+    const statusEl =
+        document.getElementById("capture-status");
+
+
+    if (stepEl) {
+
+        stepEl.textContent =
+            `STEP ${captureStepIndex + 1} / ${captureSteps.length}`;
+
+    }
+
+
+    if (titleEl) {
+
+        titleEl.textContent = step.title;
+
+    }
+
+
+    if (descriptionEl) {
+
+        descriptionEl.textContent = step.description;
+
+    }
+
+
+    if (statusEl) {
+
+        statusEl.textContent = step.captured
             ? "Captured! The white stone has been removed."
-            : "Watch how black gradually reduces the white stone's liberties.";
+            : "Watch liberties disappear.";
 
-    document.getElementById("capture-next").disabled =
-        captureStepIndex === captureSteps.length - 1;
+    }
+
+
+    const nextButton = document.getElementById("capture-next");
+
+    if (nextButton) {
+
+        nextButton.disabled =
+            captureStepIndex === captureSteps.length - 1;
+
+    }
 
 }
 
+
+// Move to the next capture step
 
 function nextCaptureStep() {
 
@@ -607,6 +989,8 @@ function nextCaptureStep() {
 }
 
 
+// Reset the capture demonstration
+
 function resetCaptureDemo() {
 
     captureStepIndex = 0;
@@ -617,17 +1001,22 @@ function resetCaptureDemo() {
 
 
 /* ==========================================
-   7. CHAPTER 3
-   PLAYABLE GO GAME
+   6. CHAPTER 3 - PLAYABLE GO BOARD
+   Improved Game Logic
 ========================================== */
 
 let game = {};
+
+
+// ------------------------------------------
+// 6.1 CREATE A NEW GAME
+// ------------------------------------------
 
 function createNewGame() {
 
     return {
 
-        board: createEmptyBoard(9),
+        board: createEmptyBoard(19),
 
         currentPlayer: "black",
 
@@ -635,7 +1024,7 @@ function createNewGame() {
 
         whiteCaptures: 0,
 
-        moveHistory: [],
+        lastMove: null,
 
         previousBoard: null,
 
@@ -643,18 +1032,25 @@ function createNewGame() {
 
         gameOver: false,
 
-        lastMove: null
+        statusMessage:
+            "Black plays first. Choose an empty intersection.",
+
+        undoStack: [],
+
+        moveHistory: []
 
     };
 
 }
 
 
-/* Save the complete game state before a move */
+// ------------------------------------------
+// 6.2 SAVE GAME STATE
+// ------------------------------------------
 
 function saveGameState() {
 
-    game.moveHistory.push({
+    game.undoStack.push({
 
         board: cloneBoard(game.board),
 
@@ -664,6 +1060,10 @@ function saveGameState() {
 
         whiteCaptures: game.whiteCaptures,
 
+        lastMove: game.lastMove
+            ? { ...game.lastMove }
+            : null,
+
         previousBoard: game.previousBoard
             ? cloneBoard(game.previousBoard)
             : null,
@@ -672,103 +1072,133 @@ function saveGameState() {
 
         gameOver: game.gameOver,
 
-        lastMove: game.lastMove
-            ? { ...game.lastMove }
-            : null
+        statusMessage: game.statusMessage,
+
+        moveHistory: [...game.moveHistory]
 
     });
 
 }
 
 
-/* ==========================================
-   8. CAPTURE DETECTION
-========================================== */
+// ------------------------------------------
+// 6.3 RESTORE GAME STATE
+// ------------------------------------------
 
-function findCapturedGroups(board, color) {
+function restoreGameState(state) {
 
-    const size = board.length;
+    game.board = cloneBoard(state.board);
 
-    const visited = new Set();
+    game.currentPlayer = state.currentPlayer;
 
-    const captured = [];
+    game.blackCaptures = state.blackCaptures;
 
-    for (let row = 0; row < size; row++) {
+    game.whiteCaptures = state.whiteCaptures;
 
-        for (let col = 0; col < size; col++) {
+    game.lastMove = state.lastMove
+        ? { ...state.lastMove }
+        : null;
 
-            const key = `${row},${col}`;
+    game.previousBoard = state.previousBoard
+        ? cloneBoard(state.previousBoard)
+        : null;
 
-            if (
-                board[row][col] !== color ||
-                visited.has(key)
-            ) {
+    game.consecutivePasses = state.consecutivePasses;
 
-                continue;
+    game.gameOver = state.gameOver;
 
-            }
+    game.statusMessage = state.statusMessage;
 
-            const group = getGroup(board, row, col);
-
-            group.stones.forEach(([r, c]) => {
-
-                visited.add(`${r},${c}`);
-
-            });
-
-            if (group.liberties.size === 0) {
-
-                captured.push(...group.stones);
-
-            }
-
-        }
-
-    }
-
-    return captured;
+    game.moveHistory = [...state.moveHistory];
 
 }
 
 
-/* ==========================================
-   9. PLAY A MOVE
-========================================== */
+// ------------------------------------------
+// 6.4 GET PLAYER NAME
+// ------------------------------------------
+
+function getPlayerName(color) {
+
+    return color === "black" ? "Black" : "White";
+
+}
+
+
+// ------------------------------------------
+// 6.5 GET BOARD COORDINATES
+// ------------------------------------------
+
+function getMoveCoordinate(row, col) {
+
+    const letters = "ABCDEFGHJKLMNOPQRST";
+
+    const column = letters[col] || `${col + 1}`;
+
+    const boardRow = game.board.length - row;
+
+    return `${column}${boardRow}`;
+
+}
+
+
+// ------------------------------------------
+// 6.6 PLAY A MOVE
+// ------------------------------------------
 
 function playMove(row, col) {
 
     if (game.gameOver) {
 
-        updateGameStatus("The game has ended. Restart to play again.");
-
         return;
 
     }
+
+
+    // Check occupied intersections.
 
     if (game.board[row][col] !== null) {
 
-        updateGameStatus("This intersection is already occupied.");
+        game.statusMessage =
+            "This intersection is already occupied. Choose an empty point.";
+
+        updateGameInformation();
 
         return;
 
     }
+
+
+    const size = game.board.length;
 
     const candidate = cloneBoard(game.board);
 
     const color = game.currentPlayer;
 
-    const opponent = color === "black" ? "white" : "black";
+    const opponent =
+        color === "black" ? "white" : "black";
 
-    // Place the new stone
+
+    // Save the board before this move.
+
+    const boardBeforeMove = cloneBoard(game.board);
+
+
+    // Place the new stone.
+
     candidate[row][col] = color;
 
 
-    // Find adjacent opponent groups with no liberties
+    // --------------------------------------
+    // Check adjacent opponent groups
+    // --------------------------------------
+
     const capturedGroups = [];
 
     const checked = new Set();
 
-    for (const [r, c] of getNeighbors(row, col, 9)) {
+
+    for (const [r, c] of getNeighbors(row, col, size)) {
 
         if (candidate[r][c] !== opponent) continue;
 
@@ -776,13 +1206,16 @@ function playMove(row, col) {
 
         if (checked.has(key)) continue;
 
+
         const group = getGroup(candidate, r, c);
+
 
         group.stones.forEach(([gr, gc]) => {
 
             checked.add(`${gr},${gc}`);
 
         });
+
 
         if (group.liberties.size === 0) {
 
@@ -793,7 +1226,10 @@ function playMove(row, col) {
     }
 
 
-    // Remove captured opponent stones
+    // --------------------------------------
+    // Remove captured stones
+    // --------------------------------------
+
     capturedGroups.forEach(([r, c]) => {
 
         candidate[r][c] = null;
@@ -801,55 +1237,82 @@ function playMove(row, col) {
     });
 
 
-    // Check suicide rule after capturing
-    const ownGroup = getGroup(candidate, row, col);
+    // --------------------------------------
+    // Check suicide
+    // --------------------------------------
 
-    if (ownGroup.liberties.size === 0) {
+    const newGroup = getGroup(
+        candidate,
+        row,
+        col
+    );
 
-        updateGameStatus(
-            "Illegal move! You cannot place a stone " +
-            "with no liberties unless it captures opponent stones."
-        );
+
+    if (
+        newGroup.liberties.size === 0 &&
+        capturedGroups.length === 0
+    ) {
+
+        game.statusMessage =
+            "Illegal move! Your new group would have no liberties.";
+
+        updateGameInformation();
 
         return;
 
     }
 
 
-    // Simple ko rule
+    // --------------------------------------
+    // Check the simple Ko rule
+    // --------------------------------------
+
     if (
         game.previousBoard &&
         boardToString(candidate) ===
         boardToString(game.previousBoard)
     ) {
 
-        updateGameStatus(
-            "Illegal move! The Ko rule prevents " +
-            "immediate repetition of the previous board position."
-        );
+        game.statusMessage =
+            "Illegal move! The Ko rule prevents an immediate repetition.";
+
+        updateGameInformation();
 
         return;
 
     }
 
 
+    // --------------------------------------
     // Save state before changing the game
+    // --------------------------------------
+
     saveGameState();
 
-    const oldBoard = cloneBoard(game.board);
 
+    // --------------------------------------
+    // Update the board
+    // --------------------------------------
 
-    // Apply the move
     game.board = candidate;
 
-    game.previousBoard = oldBoard;
+    game.previousBoard = boardBeforeMove;
+
+    game.lastMove = {
+        row,
+        col
+    };
+
+
+    // A normal move resets consecutive passes.
 
     game.consecutivePasses = 0;
 
-    game.lastMove = { row, col };
 
+    // --------------------------------------
+    // Update capture counts
+    // --------------------------------------
 
-    // Update capture counters
     if (color === "black") {
 
         game.blackCaptures += capturedGroups.length;
@@ -861,37 +1324,169 @@ function playMove(row, col) {
     }
 
 
-    // Switch player
+    // --------------------------------------
+    // Record the move
+    // --------------------------------------
+
+    game.moveHistory.push({
+
+        type: "move",
+
+        color,
+
+        row,
+
+        col,
+
+        coordinate: getMoveCoordinate(row, col),
+
+        captured: capturedGroups.length
+
+    });
+
+
+    // --------------------------------------
+    // Switch players
+    // --------------------------------------
+
     game.currentPlayer = opponent;
 
 
-    // Update the screen
+    // --------------------------------------
+    // Update feedback
+    // --------------------------------------
+
+    if (capturedGroups.length > 0) {
+
+        game.statusMessage =
+            `${getPlayerName(color)} captured ` +
+            `${capturedGroups.length} stone(s)!`;
+
+    } else {
+
+        game.statusMessage =
+            `${getPlayerName(opponent)} to play next.`;
+
+    }
+
+
     renderGameBoard();
 
     updateGameInformation();
 
-    if (capturedGroups.length > 0) {
+}
 
-        updateGameStatus(
-            `${capturedGroups.length} stone(s) captured! ` +
-            `${game.currentPlayer === "black" ? "Black" : "White"}'s turn.`
-        );
 
-    } else {
+// ------------------------------------------
+// 6.7 UNDO LAST ACTION
+// ------------------------------------------
 
-        updateGameStatus(
-            `${color === "black" ? "Black" : "White"} played. ` +
-            `${game.currentPlayer === "black" ? "Black" : "White"}'s turn.`
-        );
+function undoMove() {
+
+    if (game.undoStack.length === 0) {
+
+        game.statusMessage =
+            "There is no previous move to undo.";
+
+        updateGameInformation();
+
+        return;
 
     }
+
+
+    const previousState = game.undoStack.pop();
+
+    restoreGameState(previousState);
+
+
+    game.statusMessage = "Last action undone.";
+
+    renderGameBoard();
+
+    updateGameInformation();
 
 }
 
 
-/* ==========================================
-   10. GAME BOARD RENDERING
-========================================== */
+// ------------------------------------------
+// 6.8 PASS TURN
+// ------------------------------------------
+
+function passTurn() {
+
+    if (game.gameOver) {
+
+        return;
+
+    }
+
+
+    const color = game.currentPlayer;
+
+    const opponent =
+        color === "black" ? "white" : "black";
+
+
+    // Save the current state for Undo.
+
+    saveGameState();
+
+
+    // Record the pass.
+
+    game.moveHistory.push({
+
+        type: "pass",
+
+        color
+
+    });
+
+
+    game.consecutivePasses++;
+
+
+    // Passing resets the immediate Ko restriction.
+
+    game.previousBoard = null;
+
+    game.lastMove = null;
+
+
+    // Switch players.
+
+    game.currentPlayer = opponent;
+
+
+    // Check consecutive passes.
+
+    if (game.consecutivePasses >= 2) {
+
+        game.gameOver = true;
+
+        game.statusMessage =
+            "Game over! Both players passed. You can review the game or restart.";
+
+    } else {
+
+        game.statusMessage =
+            `${getPlayerName(color)} passed. ` +
+            `${getPlayerName(opponent)} to play.`;
+
+    }
+
+
+    renderGameBoard();
+
+    updateGameInformation();
+
+}
+
+
+// ------------------------------------------
+// 6.9 RENDER THE GAME BOARD
+// ------------------------------------------
 
 function renderGameBoard() {
 
@@ -899,154 +1494,354 @@ function renderGameBoard() {
 
     if (!container) return;
 
+
     renderBoard(
+
         container,
+
         game.board,
+
         playMove,
-        { lastMove: game.lastMove }
+
+        {
+
+            lastMove: game.lastMove
+
+        }
+
     );
 
 }
 
 
-function updateGameInformation() {
+// ------------------------------------------
+// 6.10 RENDER MOVE HISTORY
+// ------------------------------------------
 
-    // Captured stones
-    document.getElementById("black-captures").textContent =
-        game.blackCaptures;
+function renderMoveHistory() {
 
-    document.getElementById("white-captures").textContent =
-        game.whiteCaptures;
+    const historyContainer =
+        document.getElementById("game-history-list");
 
-
-    // Current player
-    const turnText = document.getElementById("turn-text");
-
-    const turnStone = document.getElementById("turn-stone");
-
-    turnText.textContent =
-        game.currentPlayer === "black"
-            ? "Black to play"
-            : "White to play";
-
-    turnStone.className =
-        `turn-stone ${game.currentPlayer}-stone`;
+    if (!historyContainer) return;
 
 
-    // Undo button
-    document.getElementById("undo-button").disabled =
-        game.moveHistory.length === 0;
+    historyContainer.innerHTML = "";
 
-}
-
-
-function updateGameStatus(message) {
-
-    document.getElementById("game-status").textContent =
-        message;
-
-}
-
-
-/* ==========================================
-   11. UNDO
-========================================== */
-
-function undoMove() {
 
     if (game.moveHistory.length === 0) {
 
-        updateGameStatus("There is no move to undo.");
+        const emptyMessage = document.createElement("p");
+
+        emptyMessage.textContent =
+            "No moves yet. Start playing!";
+
+        historyContainer.appendChild(emptyMessage);
 
         return;
 
     }
 
-    const previous = game.moveHistory.pop();
 
-    game.board = previous.board;
+    game.moveHistory.forEach((move, index) => {
 
-    game.currentPlayer = previous.currentPlayer;
+        const item = document.createElement("div");
 
-    game.blackCaptures = previous.blackCaptures;
+        item.className = "game-history-item";
 
-    game.whiteCaptures = previous.whiteCaptures;
 
-    game.previousBoard = previous.previousBoard;
+        const player = getPlayerName(move.color);
 
-    game.consecutivePasses = previous.consecutivePasses;
+        let description;
 
-    game.gameOver = previous.gameOver;
 
-    game.lastMove = previous.lastMove;
+        if (move.type === "pass") {
 
-    renderGameBoard();
+            description =
+                `${index + 1}. ${player} — Pass`;
 
-    updateGameInformation();
+        } else {
 
-    updateGameStatus("Last move undone.");
+            description =
+                `${index + 1}. ${player} — ${move.coordinate}`;
+
+            if (move.captured > 0) {
+
+                description +=
+                    ` (Captured ${move.captured})`;
+
+            }
+
+        }
+
+
+        item.textContent = description;
+
+        historyContainer.appendChild(item);
+
+    });
+
+
+    historyContainer.scrollTop =
+        historyContainer.scrollHeight;
 
 }
 
 
-/* ==========================================
-   12. PASS TURN
-========================================== */
+// ------------------------------------------
+// 6.11 UPDATE GAME INFORMATION
+// ------------------------------------------
 
-function passTurn() {
+function updateGameInformation() {
 
-    if (game.gameOver) {
+    const bCap =
+        document.getElementById("black-captures");
 
-        updateGameStatus("The game has already ended.");
+    const wCap =
+        document.getElementById("white-captures");
+
+
+    if (bCap) {
+
+        bCap.textContent = game.blackCaptures;
+
+    }
+
+
+    if (wCap) {
+
+        wCap.textContent = game.whiteCaptures;
+
+    }
+
+
+    const turnText =
+        document.getElementById("turn-text");
+
+
+    if (turnText) {
+
+        if (game.gameOver) {
+
+            turnText.textContent = "Game Over";
+
+        } else {
+
+            turnText.textContent =
+                `${getPlayerName(game.currentPlayer)} to play`;
+
+        }
+
+    }
+
+
+    // Update feedback message.
+
+    const feedback =
+        document.getElementById("game-feedback");
+
+    if (feedback) {
+
+        feedback.textContent = game.statusMessage;
+
+    }
+
+
+    // Update Undo button.
+
+    const undoButton =
+        document.getElementById("undo-button");
+
+    if (undoButton) {
+
+        undoButton.disabled =
+            game.undoStack.length === 0;
+
+    }
+
+
+    // Update Pass button.
+
+    const passButton =
+        document.getElementById("pass-button");
+
+    if (passButton) {
+
+        passButton.disabled = game.gameOver;
+
+    }
+
+
+    // Update move history.
+
+    renderMoveHistory();
+
+}
+
+
+// ------------------------------------------
+// 6.12 CREATE GAME CONTROLS
+// ------------------------------------------
+
+function createGameControls() {
+
+    const board = document.getElementById("play-board");
+
+    if (!board) return;
+
+
+    // Prevent duplicate controls.
+
+    if (document.getElementById("game-controls")) {
 
         return;
 
     }
 
-    saveGameState();
 
-    game.consecutivePasses++;
+    const panel = document.createElement("div");
 
-    // Passing breaks the immediate ko restriction
-    game.previousBoard = null;
+    panel.id = "game-controls";
 
-    game.lastMove = null;
+    panel.className = "game-controls";
 
-    if (game.consecutivePasses >= 2) {
 
-        game.gameOver = true;
+    // Undo button.
 
-        updateGameStatus(
-            "Game over! Both players passed consecutively. " +
-            "The game has ended. Restart to play again."
+    const undoButton = document.createElement("button");
+
+    undoButton.id = "undo-button";
+
+    undoButton.type = "button";
+
+    undoButton.textContent = "Undo";
+
+    undoButton.className = "game-control-button";
+
+    undoButton.addEventListener("click", undoMove);
+
+
+    // Pass button.
+
+    const passButton = document.createElement("button");
+
+    passButton.id = "pass-button";
+
+    passButton.type = "button";
+
+    passButton.textContent = "Pass";
+
+    passButton.className = "game-control-button";
+
+    passButton.addEventListener("click", passTurn);
+
+
+    panel.appendChild(undoButton);
+
+    panel.appendChild(passButton);
+
+
+    // Insert controls below the game header if possible.
+
+    const gameHeader =
+        board.closest(".demo-panel")
+            ?.querySelector(".game-header");
+
+
+    if (gameHeader) {
+
+        gameHeader.insertAdjacentElement(
+            "afterend",
+            panel
         );
 
     } else {
 
-        const passingPlayer = game.currentPlayer;
-
-        game.currentPlayer =
-            game.currentPlayer === "black"
-                ? "white"
-                : "black";
-
-        updateGameStatus(
-            `${passingPlayer === "black" ? "Black" : "White"} passed. ` +
-            `${game.currentPlayer === "black" ? "Black" : "White"}'s turn.`
+        board.insertAdjacentElement(
+            "beforebegin",
+            panel
         );
 
     }
 
-    renderGameBoard();
 
-    updateGameInformation();
+    // --------------------------------------
+    // Create feedback area
+    // --------------------------------------
+
+    const feedback = document.createElement("p");
+
+    feedback.id = "game-feedback";
+
+    feedback.className = "game-feedback";
+
+    feedback.setAttribute("aria-live", "polite");
+
+    feedback.textContent =
+        "Black plays first. Choose an empty intersection.";
+
+
+    panel.insertAdjacentElement(
+        "afterend",
+        feedback
+    );
+
+
+    // --------------------------------------
+    // Create move history area
+    // --------------------------------------
+
+    const historySection =
+        document.createElement("section");
+
+    historySection.id = "game-history";
+
+    historySection.className = "game-history";
+
+
+    const historyTitle =
+        document.createElement("h3");
+
+    historyTitle.textContent = "Move History";
+
+
+    const historyList =
+        document.createElement("div");
+
+    historyList.id = "game-history-list";
+
+    historyList.className = "game-history-list";
+
+
+    historySection.appendChild(historyTitle);
+
+    historySection.appendChild(historyList);
+
+
+    const sidebar =
+        board.closest(".demo-panel")
+            ?.querySelector(".game-sidebar-stats");
+
+
+    if (sidebar) {
+
+        sidebar.appendChild(historySection);
+
+    } else {
+
+        feedback.insertAdjacentElement(
+            "afterend",
+            historySection
+        );
+
+    }
 
 }
 
 
-/* ==========================================
-   13. RESTART GAME
-========================================== */
+// ------------------------------------------
+// 6.13 RESTART GAME
+// ------------------------------------------
 
 function restartGame() {
 
@@ -1056,44 +1851,68 @@ function restartGame() {
 
     updateGameInformation();
 
-    updateGameStatus("New game started. Black plays first.");
-
 }
 
 
-/* ==========================================
-   14. INITIALIZE WEBSITE
-========================================== */
+// ------------------------------------------
+// 6.14 INITIALIZE CHAPTER 3
+// ------------------------------------------
 
-function initializeWebsite() {
+function initializeGame() {
 
-    // Chapter 1
-    diagramBoard = createEmptyBoard(19);
-
-    drawDiagramBoard();
-
-
-    // Chapter 2
-    libertyBoard = createEmptyBoard(9);
-
-    drawLibertyBoard();
-
-    captureStepIndex = 0;
-
-    drawCaptureBoard();
-
-
-    // Chapter 3
     game = createNewGame();
+
+    createGameControls();
 
     renderGameBoard();
 
     updateGameInformation();
 
-    updateGameStatus("Black's turn. Enjoy your first Go game!");
-
 }
 
 
-// Initialize after HTML has loaded
-initializeWebsite();
+/* ==========================================
+   7. PAGE INITIALIZATION
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+
+    // --------------------------------------
+    // Chapter 1: Board Explorer
+    // --------------------------------------
+
+    if (document.getElementById("diagram-board")) {
+
+        drawDiagramBoard();
+
+        initDiagramStoneCursor();
+
+    }
+
+
+    // --------------------------------------
+    // Chapter 2: Liberties and Capturing
+    // --------------------------------------
+
+    if (document.getElementById("liberty-board")) {
+
+        drawLibertyBoard();
+
+        drawCaptureBoard();
+
+    }
+
+
+    // --------------------------------------
+    // Chapter 3: Playable Board
+    // --------------------------------------
+
+    if (document.getElementById("play-board")) {
+
+        initializeGame();
+
+    }
+
+});
+
