@@ -1,472 +1,62 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-        content="Learn the game of Go from zero. Explore the rules, practice on an interactive board, and develop your Go skills step by step.">
-
-    <title>Go Beginner | Learn Go from Zero</title>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GO BEGINNING is a visual, beginner-friendly path into the game of Go.">
+    <title>GO BEGINNING | Building New Paths</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-
-<body>
-
-    <!-- =========================
-         HEADER: WEBSITE NAVIGATION
-    ========================== -->
+<body class="home-page-body">
+    <a class="skip-link" href="#home-page">Skip to content</a>
     <header class="site-header">
-
-        <a href="index.html" class="header-logo">
-            <div class="logo-icon">▲</div>
-
-            <div class="logo-text">
-                <span class="brand-name">GO BEGINNING</span>
-                <span class="brand-tagline">BUILDING NEW PATHS</span>
-            </div>
-        </a>
-
+        <a href="index.html" class="header-logo" aria-label="GO BEGINNING home"><div class="logo-icon" aria-hidden="true">▲</div><div class="logo-text"><span class="brand-name">GO BEGINNING</span><span class="brand-tagline">BUILDING NEW PATHS</span></div></a>
         <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
-            <a href="chapter1.html" class="chapter-tab">
-                <span>01</span> Understanding Go
-            </a>
-
-            <a href="chapter2.html" class="chapter-tab">
-                <span>02</span> Liberties & Capturing
-            </a>
-
-            <a href="chapter3.html" class="chapter-tab">
-                <span>09</span> Practice Board
-            </a>
+            <a href="chapter1.html" class="chapter-tab"><span>01</span> Understanding Go</a>
+            <a href="chapter2.html" class="chapter-tab"><span>02</span> Liberties &amp; Capturing</a>
+            <a href="chapter3.html" class="chapter-tab"><span>03</span> Practice Board</a>
         </nav>
-
-        <nav class="main-nav" aria-label="Main navigation">
-            <a href="index.html" class="active">Home</a>
-            <a href="#course-section">Learning Center</a>
-            <a href="about.html">About</a>
-        </nav>
-
+        <nav class="main-nav" aria-label="Main navigation"><a href="index.html" class="active" aria-current="page">Home</a><a href="#course-section">Learning Center</a><a href="about.html">About</a></nav>
     </header>
-
-
     <main id="home-page">
-
-        <!-- =========================
-             SECTION 1: HERO
-        ========================== -->
-        <section class="hero">
-
-            <div class="hero-content">
-
-                <span class="eyebrow">
-                    YOUR JOURNEY STARTS HERE
-                </span>
-
-                <h1>
-                    Discover the<br>
-                    World of Go
-                </h1>
-
-                <div class="hero-line"></div>
-
-                <p>
-                    Go is more than just a board game.
-                    It is a journey of logic, patience,
-                    creativity and strategy.
-                    Start from the basics and learn
-                    to play Go step by step.
-                </p>
-
-                <a href="chapter1.html" class="primary-button">
-                    Start Learning <span>→</span>
-                </a>
-
+        <section class="home-hero" aria-labelledby="home-title">
+            <div class="home-hero-copy">
+                <p class="home-kicker">A VISUAL BEGINNER'S PATH INTO GO</p>
+                <h1 id="home-title">ONE STONE.<br><em>ENDLESS</em> POSSIBILITIES.</h1>
+                <p class="home-intro">Go is a conversation written on a board. Learn its first ideas, see every move clearly, and find your own way across 361 intersections.</p>
+                <div class="home-actions"><a href="chapter1.html" class="primary-button">START LEARNING <span aria-hidden="true">→</span></a><a href="#course-section" class="secondary-button">EXPLORE CHAPTERS <span aria-hidden="true">↓</span></a></div>
+                <p class="home-note"><span></span> NO EXPERIENCE REQUIRED</p>
             </div>
-
-
-            <div class="hero-decoration">
-
-                <div class="mini-board">
-                    <div class="mini-stone black"></div>
-                    <div class="mini-stone white"></div>
-                    <div class="mini-stone black second"></div>
-                </div>
-
+            <div class="home-hero-art">
+                <img src="assets/go-manga-reference.jpg" alt="A monochrome manga-style scene of a Go board, black and white stones, and a contemplative player.">
+                <span class="home-sound" aria-hidden="true">CLACK!</span><span class="home-stamp" aria-hidden="true">LEARN THE<br>LANGUAGE<br>OF GO</span>
+                <p>Visual reference supplied for this project. The original in-image watermark/copyright marking is intentionally retained.</p>
             </div>
-
         </section>
-
-
-
-        <!-- =========================
-             SECTION 2: LEARNING JOURNEY
-        ========================== -->
-        <section class="learning-journey">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">
-                    YOUR LEARNING PATH
-                </span>
-
-                <h2>From Beginner to Go Player</h2>
-
-                <p>
-                    Follow a structured learning path
-                    and build your Go knowledge step by step.
-                </p>
-
-            </div>
-
-
-            <div class="journey-grid">
-
-                <article class="journey-card">
-
-                    <span class="journey-number">01</span>
-
-                    <h3>Learn the Basics</h3>
-
-                    <p>
-                        Understand the Go board, stones,
-                        liberties and basic rules.
-                    </p>
-
-                    <span class="journey-range">
-                        CHAPTER 01 – 03
-                    </span>
-
-                </article>
-
-
-                <article class="journey-card">
-
-                    <span class="journey-number">02</span>
-
-                    <h3>Understand the Strategy</h3>
-
-                    <p>
-                        Discover life and death,
-                        territory, tactics and opening ideas.
-                    </p>
-
-                    <span class="journey-range">
-                        CHAPTER 04 – 08
-                    </span>
-
-                </article>
-
-
-                <article class="journey-card">
-
-                    <span class="journey-number">03</span>
-
-                    <h3>Play Your First Game</h3>
-
-                    <p>
-                        Apply what you have learned
-                        on an interactive Go board.
-                    </p>
-
-                    <span class="journey-range">
-                        CHAPTER 09
-                    </span>
-
-                </article>
-
-            </div>
-
+        <div class="home-ticker" aria-hidden="true"><div><span>SEE THE BOARD</span><span>MAKE A MOVE</span><span>BUILD A GROUP</span><span>FIND A NEW PATH</span><span>SEE THE BOARD</span><span>MAKE A MOVE</span><span>BUILD A GROUP</span><span>FIND A NEW PATH</span></div></div>
+        <section class="home-story" aria-labelledby="first-principle">
+            <div class="home-story-copy"><p class="home-section-label">THE FIRST PRINCIPLE</p><h2 id="first-principle">It begins with an <mark>empty</mark> board.</h2><p>There are no pieces to memorize and no hidden rules to unlock. Start by learning where a stone goes, then watch simple patterns become a living game.</p><blockquote>“A move is small. Its direction can be enormous.”</blockquote></div>
+            <div class="home-demo-wrap"><div class="home-demo-meta"><span>THE BOARD IS SPEAKING</span><span><i></i>AUTO DEMO</span></div><div class="home-demo-board" role="img" aria-label="An automatic nine by nine Go board demonstration showing alternating black and white stones."><span class="home-move-tag">MOVE <b id="home-move-count">01</b> / 08</span><div id="home-stones"></div></div></div>
         </section>
-
-
-
-        <!-- =========================
-             SECTION 3: COURSE CHAPTERS
-        ========================== -->
-        <section class="course-section" id="course-section">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">
-                    THE LEARNING CENTER
-                </span>
-
-                <h2>Explore the Course</h2>
-
-                <p>
-                    Nine chapters designed to take you
-                    from your first move to your first complete game.
-                </p>
-
+        <section class="course-section home-course" id="course-section" aria-labelledby="course-title">
+            <div class="home-course-heading"><div><p class="home-section-label">YOUR ROUTE</p><h2 id="course-title">Three chapters.<br>One <mark>new way</mark> to see.</h2></div><p>Short, visual lessons take you from the board's basics to your first purposeful move.</p></div>
+            <div class="home-course-grid">
+                <article class="home-course-card"><div><span>CHAPTER 01</span><h3>Understanding<br>Go</h3><p>Meet the board, the stones, intersections, and star points.</p></div><a href="chapter1.html" aria-label="Open Chapter 1: Understanding Go">→</a></article>
+                <article class="home-course-card home-course-card--dark"><div><span>CHAPTER 02</span><h3>Liberties &amp;<br>Capturing</h3><p>See how stones breathe, connect, surround, and disappear.</p></div><a href="chapter2.html" aria-label="Open Chapter 2: Liberties and Capturing">→</a></article>
+                <article class="home-course-card home-course-card--gold"><div><span>CHAPTER 03</span><h3>Practice<br>Board</h3><p>Put your first ideas into motion on an interactive board.</p></div><a href="chapter3.html" aria-label="Open Chapter 3: Practice Board">→</a></article>
             </div>
-
-
-            <div class="course-grid">
-
-                <!-- Chapter 01 -->
-                <article class="course-card available">
-
-                    <div class="course-card-top">
-                        <span class="course-number">01</span>
-                        <span class="course-status">AVAILABLE</span>
-                    </div>
-
-                    <h3>Understanding Go</h3>
-
-                    <p>
-                        Discover the Go board,
-                        intersections, stones and basic concepts.
-                    </p>
-
-                    <a href="chapter1.html" class="course-link">
-                        Start Chapter <span>→</span>
-                    </a>
-
-                </article>
-
-
-                <!-- Chapter 02 -->
-                <article class="course-card available">
-
-                    <div class="course-card-top">
-                        <span class="course-number">02</span>
-                        <span class="course-status">AVAILABLE</span>
-                    </div>
-
-                    <h3>Liberties & Capturing</h3>
-
-                    <p>
-                        Learn what liberties are,
-                        how stones connect and how captures work.
-                    </p>
-
-                    <a href="chapter2.html" class="course-link">
-                        Start Chapter <span>→</span>
-                    </a>
-
-                </article>
-
-
-                <!-- Chapter 03 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">03</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Basic Rules</h3>
-
-                    <p>
-                        Understand legal moves,
-                        forbidden moves, passing and the rules of play.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 04 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">04</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Eyes and Life & Death</h3>
-
-                    <p>
-                        Learn how eyes work
-                        and understand the difference between
-                        living and dead groups.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 05 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">05</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Understanding Ko</h3>
-
-                    <p>
-                        Explore the Ko rule
-                        and understand why some positions
-                        cannot be repeated immediately.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 06 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">06</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Territory and Scoring</h3>
-
-                    <p>
-                        Discover territory,
-                        counting methods and how a Go game ends.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 07 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">07</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Basic Go Tactics</h3>
-
-                    <p>
-                        Practice connections,
-                        cuts, escapes and basic tactical patterns.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 08 -->
-                <article class="course-card upcoming">
-
-                    <div class="course-card-top">
-                        <span class="course-number">08</span>
-                        <span class="course-status">COMING SOON</span>
-                    </div>
-
-                    <h3>Opening Strategy</h3>
-
-                    <p>
-                        Learn the purpose of opening moves,
-                        corners, sides and center influence.
-                    </p>
-
-                    <span class="course-disabled">
-                        Coming Soon
-                    </span>
-
-                </article>
-
-
-                <!-- Chapter 09 -->
-                <article class="course-card available">
-
-                    <div class="course-card-top">
-                        <span class="course-number">09</span>
-                        <span class="course-status">PRACTICE</span>
-                    </div>
-
-                    <h3>Practice and Game Review</h3>
-
-                    <p>
-                        Put your knowledge into practice
-                        and play on an interactive Go board.
-                    </p>
-
-                    <a href="chapter3.html" class="course-link">
-                        Open Practice Board <span>→</span>
-                    </a>
-
-                </article>
-
-            </div>
-
         </section>
-
-
-
-        <!-- =========================
-             SECTION 4: START LEARNING
-        ========================== -->
-        <section class="start-learning-section">
-
-            <div class="start-learning-content">
-
-                <span class="eyebrow">
-                    EVERY EXPERT WAS ONCE A BEGINNER
-                </span>
-
-                <h2>Your First Move Starts Here.</h2>
-
-                <p>
-                    You do not need any previous experience.
-                    Begin with the basics and discover
-                    the beauty of Go one move at a time.
-                </p>
-
-                <a href="chapter1.html" class="primary-button">
-                    Begin Your Journey <span>→</span>
-                </a>
-
-            </div>
-
-        </section>
-
-
+        <section class="home-closing" aria-labelledby="closing-title"><div><p class="home-section-label">YOUR FIRST STONE IS WAITING</p><h2 id="closing-title">Every path starts<br>at an intersection.</h2><p>Take the first step. The board will meet you there.</p><a href="chapter1.html" class="primary-button">BEGIN CHAPTER 01 <span aria-hidden="true">→</span></a></div></section>
     </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-    <footer class="site-footer">
-
-        <div class="footer-brand">
-            <span class="brand-name">GO BEGINNING</span>
-            <span class="brand-tagline">BUILDING NEW PATHS</span>
-        </div>
-
-        <p>
-            Learn Go from zero. Think deeply. Play freely.
-        </p>
-
-        <span class="footer-copyright">
-            © 2026 Go Beginning. All rights reserved.
-        </span>
-
-    </footer>
-
+    <footer class="site-footer"><span>© 2026 GO BEGINNING · BUILDING NEW PATHS</span><span><a href="about.html">ABOUT THIS PROJECT</a> · LEARN SLOWLY. PLAY DEEPLY.</span></footer>
+    <script>
+      (() => {
+        const positions = [[50,50,'black'],[37.5,50,'white'],[62.5,50,'black'],[50,37.5,'white'],[50,62.5,'black'],[37.5,37.5,'white'],[62.5,62.5,'black'],[62.5,37.5,'white']];
+        const board = document.getElementById('home-stones'); const count = document.getElementById('home-move-count'); if (!board || !count) return;
+        positions.forEach(([x,y,color]) => { const stone = document.createElement('span'); stone.className = `home-demo-stone ${color}`; stone.style.left = `${x}%`; stone.style.top = `${y}%`; board.appendChild(stone); });
+        const stones = [...board.children]; let move = 0; const play = () => { stones.forEach((stone,index) => stone.classList.toggle('is-visible', index <= move)); count.textContent = String(move + 1).padStart(2, '0'); move = move === stones.length - 1 ? 0 : move + 1; }; play(); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) window.setInterval(play, 1150);
+      })();
+    </script>
 </body>
 </html>
-
-
-

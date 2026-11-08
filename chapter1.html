@@ -1,40 +1,190 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
-        content="Learn the basics of Go, including the Go board, stones, intersections, and star points."
+        content="Learn the basics of Go, including the board, stones, intersections, and star points."
     >
 
     <title>Chapter 01 | Understanding Go</title>
 
+    <!-- Original website styles and functions -->
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+
+    <!-- ==========================================
+         CAROUSEL STYLES
+    ========================================== -->
+
+    <style>
+        .go-concept-carousel {
+            width: min(100%, 520px);
+            margin: 0 auto 35px;
+        }
+
+        .go-concept-viewport {
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--border-light, #e4e4e7);
+            background: #fff;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.055);
+            touch-action: pan-y;
+            cursor: grab;
+        }
+
+        .go-concept-viewport:active {
+            cursor: grabbing;
+        }
+
+        .go-concept-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.6s
+                cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .go-concept-card.lesson-card {
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 0;
+            min-height: 215px;
+            box-sizing: border-box;
+            padding: 30px;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
+        }
+
+        .go-concept-card.lesson-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Carousel controls */
+
+        .go-concept-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .go-concept-arrow {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border: 1px solid var(--border-light, #e4e4e7);
+            border-radius: 50%;
+            background: white;
+            color: var(--accent-gold, #c59b27);
+            font-size: 22px;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .go-concept-arrow:hover {
+            background: var(--accent-gold, #c59b27);
+            color: white;
+        }
+
+        /* Pagination dots */
+
+        .go-concept-dots {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .go-concept-dot {
+            width: 11px;
+            height: 11px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background: #c9c9c9;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .go-concept-dot[aria-current="true"] {
+            background: var(--accent-gold, #c59b27);
+            transform: scale(1.3);
+        }
+
+        .go-concept-status {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary, #71717a);
+        }
+
+        .go-concept-viewport:focus-visible,
+        .go-concept-arrow:focus-visible,
+        .go-concept-dot:focus-visible {
+            outline: 2px solid var(--accent-gold, #c59b27);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 560px) {
+            .go-concept-card.lesson-card {
+                min-height: 240px;
+                padding: 24px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .go-concept-track {
+                transition: none;
+            }
+        }
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- ==============================
+    <!-- ==========================================
          HEADER
-    =============================== -->
+    ========================================== -->
+
     <header class="site-header">
 
         <a href="index.html" class="header-logo">
+
             <div class="logo-icon">▲</div>
 
             <div class="logo-text">
                 <span class="brand-name">GO BEGINNING</span>
                 <span class="brand-tagline">BUILDING NEW PATHS</span>
             </div>
+
         </a>
 
-        <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
+        <nav
+            class="header-chapter-nav"
+            aria-label="Quick chapter navigation"
+        >
 
-            <a href="chapter1.html" class="chapter-tab active">
+            <a
+                href="chapter1.html"
+                class="chapter-tab active"
+                aria-current="page"
+            >
                 <span>01</span> Understanding Go
             </a>
 
@@ -43,29 +193,37 @@
             </a>
 
             <a href="chapter3.html" class="chapter-tab">
-                <span>09</span> Practice Board
+                <span>03</span> Practice Board
             </a>
 
         </nav>
 
         <nav class="main-nav" aria-label="Main navigation">
+
             <a href="index.html">Home</a>
-            <a href="chapter1.html" class="active">Learning Center</a>
+
+            <a href="chapter1.html" class="active">
+                Learning Center
+            </a>
+
             <a href="about.html">About</a>
+
         </nav>
 
     </header>
 
 
-    <!-- ==============================
-         MAIN LEARNING CONTENT
-    =============================== -->
+    <!-- ==========================================
+         MAIN
+    ========================================== -->
+
     <main id="learning-page">
 
         <!-- Course Progress -->
+
         <div
             class="learning-progress-bar"
-            aria-label="Course progress: Chapter 1 of 9"
+            aria-label="Course progress: Chapter 1 of 3"
         >
 
             <div class="progress-step current">
@@ -84,7 +242,7 @@
 
             <div class="progress-step">
                 <span class="step-num">03</span>
-                <span>Basic Rules</span>
+                <span>Practice Board</span>
             </div>
 
         </div>
@@ -92,71 +250,163 @@
 
         <section class="chapter-content">
 
-            <!-- Chapter Introduction -->
+            <!-- ==================================
+                 CHAPTER INTRODUCTION
+            =================================== -->
+
             <div class="chapter-title">
 
-                <span class="eyebrow">CHAPTER 01 · FOUNDATIONS</span>
+                <span class="eyebrow">
+                    CHAPTER 01 · FOUNDATIONS
+                </span>
 
                 <h1>Understanding the Go Board</h1>
 
                 <p>
-                    Before playing Go, let's understand the board,
-                    the stones, and where each move is placed.
+                    Before playing Go, let's understand
+                    the board, the stones, and where
+                    each move is placed.
                 </p>
 
             </div>
 
 
-            <!-- Basic Concepts -->
-            <div class="lesson-grid">
+            <!-- ==================================
+                 BASIC CONCEPT CAROUSEL
+            =================================== -->
 
-                <article class="lesson-card">
+            <section
+                class="go-concept-carousel"
+                data-go-concept-carousel
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Go board basics"
+            >
 
-                    <span class="lesson-number">01</span>
+                <div
+                    class="go-concept-viewport"
+                    tabindex="0"
+                    aria-label="Use the left and right arrow keys to change cards"
+                >
 
-                    <h3>The Go Board</h3>
+                    <div class="go-concept-track">
 
-                    <p>
-                        A standard Go board has 19 horizontal and
-                        19 vertical lines, forming 361 intersections.
-                    </p>
+                        <!-- CARD 01 -->
 
-                </article>
+                        <article
+                            class="lesson-card go-concept-card"
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="1 of 3"
+                        >
 
+                            <span class="lesson-number">01</span>
 
-                <article class="lesson-card">
+                            <h3>The Go Board</h3>
 
-                    <span class="lesson-number">02</span>
+                            <p>
+                                A standard Go board has
+                                19 horizontal and 19 vertical
+                                lines, forming 361 intersections.
+                            </p>
 
-                    <h3>Black and White Stones</h3>
-
-                    <p>
-                        Two players use black and white stones.
-                        Black traditionally makes the first move.
-                    </p>
-
-                </article>
-
-
-                <article class="lesson-card">
-
-                    <span class="lesson-number">03</span>
-
-                    <h3>Intersections and Star Points</h3>
-
-                    <p>
-                        Stones are placed on intersections rather
-                        than inside the squares. Star points are
-                        marked positions that help players recognize
-                        important areas of the board.
-                    </p>
-
-                </article>
-
-            </div>
+                        </article>
 
 
-            <!-- Interactive Board -->
+                        <!-- CARD 02 -->
+
+                        <article
+                            class="lesson-card go-concept-card"
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="2 of 3"
+                        >
+
+                            <span class="lesson-number">02</span>
+
+                            <h3>Black and White Stones</h3>
+
+                            <p>
+                                Two players use black and
+                                white stones. Black traditionally
+                                makes the first move.
+                            </p>
+
+                        </article>
+
+
+                        <!-- CARD 03 -->
+
+                        <article
+                            class="lesson-card go-concept-card"
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="3 of 3"
+                        >
+
+                            <span class="lesson-number">03</span>
+
+                            <h3>Intersections and Star Points</h3>
+
+                            <p>
+                                Stones are placed on intersections
+                                rather than inside squares.
+                                Star points mark important
+                                positions on the board.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Previous / Next / Dots -->
+
+                <div class="go-concept-controls">
+
+                    <button
+                        type="button"
+                        class="go-concept-arrow"
+                        data-prev
+                        aria-label="Previous card"
+                    >
+                        &#8592;
+                    </button>
+
+                    <div
+                        class="go-concept-dots"
+                        role="group"
+                        aria-label="Select a card"
+                    ></div>
+
+                    <button
+                        type="button"
+                        class="go-concept-arrow"
+                        data-next
+                        aria-label="Next card"
+                    >
+                        &#8594;
+                    </button>
+
+                </div>
+
+                <p
+                    class="go-concept-status"
+                    aria-live="off"
+                    aria-atomic="true"
+                >
+                    01 / 03
+                </p>
+
+            </section>
+
+
+            <!-- ==================================
+                 INTERACTIVE GO BOARD
+            =================================== -->
+
             <div class="demo-panel">
 
                 <div class="demo-heading">
@@ -164,14 +414,16 @@
                     <h3>Explore a 19 × 19 Go Board</h3>
 
                     <p>
-                        Select a stone color and click any intersection
-                        to place a stone on the board.
+                        Select a stone color and click
+                        any intersection to place a stone
+                        on the board.
                     </p>
 
                 </div>
 
 
                 <!-- Board Controls -->
+
                 <div class="board-controls">
 
                     <button
@@ -203,7 +455,8 @@
                 </div>
 
 
-                <!-- Go Board -->
+                <!-- Board -->
+
                 <div class="board-wrapper">
 
                     <div
@@ -216,23 +469,26 @@
 
                 </div>
 
-
                 <p
                     id="diagram-instructions"
                     class="board-instructions"
                 >
-                    How to use: Choose Black or White, then click
-                    an intersection to place a stone. Select Reset
-                    Board to clear all stones.
+                    How to use: Choose Black or White,
+                    then click an intersection to place
+                    a stone. Select Reset Board to clear
+                    all stones.
                 </p>
 
             </div>
 
 
-            <!-- Chapter Navigation -->
+            <!-- ==================================
+                 CHAPTER NAVIGATION
+            =================================== -->
+
             <div class="lesson-navigation">
 
-                <span>Chapter 01 of 09</span>
+                <span>Chapter 01 of 03</span>
 
                 <a href="chapter2.html" class="primary-button">
                     Next Chapter →
@@ -244,5 +500,335 @@
 
     </main>
 
+
+    <!-- ==========================================
+         CAROUSEL JAVASCRIPT
+         AUTOMATIC + MANUAL + SWIPE
+    ========================================== -->
+
+    <script>
+    (() => {
+
+        const carousel = document.querySelector(
+            "[data-go-concept-carousel]"
+        );
+
+        if (!carousel) return;
+
+        const viewport = carousel.querySelector(
+            ".go-concept-viewport"
+        );
+
+        const track = carousel.querySelector(
+            ".go-concept-track"
+        );
+
+        const slides = Array.from(
+            carousel.querySelectorAll(".go-concept-card")
+        );
+
+        const dotsContainer = carousel.querySelector(
+            ".go-concept-dots"
+        );
+
+        const counter = carousel.querySelector(
+            ".go-concept-status"
+        );
+
+        const prevButton = carousel.querySelector(
+            "[data-prev]"
+        );
+
+        const nextButton = carousel.querySelector(
+            "[data-next]"
+        );
+
+        // Four seconds between automatic changes.
+        const AUTO_DELAY = 4000;
+
+        if (
+            !viewport ||
+            !track ||
+            !dotsContainer ||
+            !counter ||
+            !prevButton ||
+            !nextButton ||
+            slides.length === 0
+        ) {
+            return;
+        }
+
+        let index = 0;
+        let direction = 1;
+        let timer = null;
+        let dragStart = null;
+
+
+        // ======================================
+        // CREATE PAGINATION DOTS
+        // ======================================
+
+        const dots = slides.map((slide, i) => {
+
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.className = "go-concept-dot";
+
+            button.setAttribute(
+                "aria-label",
+                `Show card ${i + 1}`
+            );
+
+            button.addEventListener("click", () => {
+                goTo(i, true);
+            });
+
+            dotsContainer.appendChild(button);
+
+            return button;
+
+        });
+
+
+        // ======================================
+        // UPDATE DISPLAY
+        // ======================================
+
+        function render(announce = false) {
+
+            track.style.transform =
+                `translate3d(-${index * 100}%, 0, 0)`;
+
+            slides.forEach((slide, i) => {
+
+                const active = i === index;
+
+                slide.setAttribute(
+                    "aria-hidden",
+                    String(!active)
+                );
+
+                slide.inert = !active;
+
+            });
+
+            dots.forEach((dot, i) => {
+
+                dot.setAttribute(
+                    "aria-current",
+                    String(i === index)
+                );
+
+            });
+
+            counter.setAttribute(
+                "aria-live",
+                announce ? "polite" : "off"
+            );
+
+            counter.textContent =
+                `${String(index + 1).padStart(2, "0")} / ` +
+                `${String(slides.length).padStart(2, "0")}`;
+
+        }
+
+
+        // ======================================
+        // STOP AUTO PLAY
+        // ======================================
+
+        function stopAuto() {
+
+            if (timer !== null) {
+                clearInterval(timer);
+            }
+
+            timer = null;
+
+        }
+
+
+        // ======================================
+        // START AUTO PLAY
+        // ======================================
+
+        function startAuto() {
+
+            stopAuto();
+
+            if (
+                slides.length < 2 ||
+                document.hidden
+            ) {
+                return;
+            }
+
+            timer = setInterval(() => {
+
+                // 01 -> 02 -> 03 -> 02 -> 01
+
+                if (index === slides.length - 1) {
+                    direction = -1;
+                }
+
+                if (index === 0) {
+                    direction = 1;
+                }
+
+                goTo(index + direction, false);
+
+            }, AUTO_DELAY);
+
+        }
+
+
+        // ======================================
+        // CHANGE CARD
+        // ======================================
+
+        function goTo(newIndex, manually = false) {
+
+            index =
+                (newIndex + slides.length) % slides.length;
+
+            render(manually);
+
+            // Restart the timer after user interaction.
+            if (manually) {
+                startAuto();
+            }
+
+        }
+
+
+        // ======================================
+        // ARROW BUTTONS
+        // ======================================
+
+        prevButton.addEventListener("click", () => {
+            goTo(index - 1, true);
+        });
+
+        nextButton.addEventListener("click", () => {
+            goTo(index + 1, true);
+        });
+
+
+        // ======================================
+        // KEYBOARD
+        // ======================================
+
+        viewport.addEventListener("keydown", event => {
+
+            if (
+                event.key !== "ArrowLeft" &&
+                event.key !== "ArrowRight"
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            goTo(
+                index + (event.key === "ArrowRight" ? 1 : -1),
+                true
+            );
+
+        });
+
+
+        // ======================================
+        // TOUCH AND MOUSE DRAGGING
+        // ======================================
+
+        viewport.addEventListener("pointerdown", event => {
+
+            if (
+                event.pointerType === "mouse" &&
+                event.button !== 0
+            ) {
+                return;
+            }
+
+            dragStart = {
+                x: event.clientX,
+                y: event.clientY
+            };
+
+            stopAuto();
+
+            try {
+                viewport.setPointerCapture(event.pointerId);
+            } catch (error) {
+                // Continue if pointer capture is unavailable.
+            }
+
+        });
+
+
+        viewport.addEventListener("pointerup", event => {
+
+            if (!dragStart) return;
+
+            const dx = event.clientX - dragStart.x;
+            const dy = event.clientY - dragStart.y;
+
+            dragStart = null;
+
+            if (
+                Math.abs(dx) >= 45 &&
+                Math.abs(dx) > Math.abs(dy)
+            ) {
+
+                goTo(index + (dx < 0 ? 1 : -1), true);
+
+            } else {
+
+                startAuto();
+
+            }
+
+        });
+
+
+        viewport.addEventListener("pointercancel", () => {
+
+            dragStart = null;
+            startAuto();
+
+        });
+
+
+        // ======================================
+        // PAUSE IN BACKGROUND TABS
+        // ======================================
+
+        document.addEventListener(
+            "visibilitychange",
+            () => {
+
+                if (document.hidden) {
+                    stopAuto();
+                } else {
+                    startAuto();
+                }
+
+            }
+        );
+
+
+        // ======================================
+        // INITIALIZE
+        // ======================================
+
+        render();
+        startAuto();
+
+    })();
+    </script>
+
 </body>
 </html>
+
+
