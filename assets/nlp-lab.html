@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An explainable rule-based NLP intent classifier for beginner Go questions.">
+    <title>NLP Lab | Go Question Intent Classifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a class="skip-link" href="#nlp-main">Skip to content</a>
+
+    <header class="site-header">
+        <a href="index.html" class="header-logo" aria-label="GO BEGINNING home">
+            <div class="logo-icon" aria-hidden="true">▲</div>
+            <div class="logo-text">
+                <span class="brand-name">GO BEGINNING</span>
+                <span class="brand-tagline">BUILDING NEW PATHS</span>
+            </div>
+        </a>
+
+        <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
+            <a href="chapter1.html" class="chapter-tab"><span>01</span> Understanding Go</a>
+            <a href="chapter2.html" class="chapter-tab"><span>02</span> Liberties &amp; Capturing</a>
+            <a href="chapter3.html" class="chapter-tab"><span>03</span> Practice Board</a>
+            <a href="chapter4.html" class="chapter-tab"><span>04</span> AI Go Tutor</a>
+        </nav>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="chapter1.html">Learning Center</a>
+            <a href="chapter4.html">AI Tutor</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <main id="nlp-main" class="nlp-lab-page">
+        <section class="nlp-hero" aria-labelledby="nlp-title">
+            <div class="nlp-hero-copy">
+                <span class="eyebrow">EXPLAINABLE NLP · RULE-BASED BASELINE</span>
+                <h1 id="nlp-title">ASK THE<br><em>GO COACH.</em></h1>
+                <p>Type a beginner Go question. The classifier normalizes the text, scores bilingual intent signals, and routes the learner to the right lesson.</p>
+                <div class="nlp-hero-tags" aria-label="Supported NLP concepts">
+                    <span>TEXT NORMALIZATION</span><span>WEIGHTED LEXICON</span><span>INTENT ROUTING</span>
+                </div>
+            </div>
+
+            <div class="nlp-pipeline" aria-label="Classifier pipeline">
+                <div><b>01</b><span>QUESTION</span></div><i>→</i>
+                <div><b>02</b><span>NORMALIZE</span></div><i>→</i>
+                <div><b>03</b><span>SCORE</span></div><i>→</i>
+                <div class="active"><b>04</b><span>ROUTE</span></div>
+            </div>
+        </section>
+
+        <section class="nlp-workbench" aria-labelledby="classifier-title">
+            <div class="nlp-input-panel">
+                <div class="nlp-panel-heading">
+                    <div><span class="eyebrow">LIVE CLASSIFIER</span><h2 id="classifier-title">What do you want to know?</h2></div>
+                    <span class="nlp-baseline-badge">CLIENT-SIDE · NO API</span>
+                </div>
+
+                <form id="intent-form">
+                    <label for="go-question">Enter an English or Chinese Go question</label>
+                    <div class="nlp-textarea-wrap">
+                        <textarea id="go-question" maxlength="220" rows="5" placeholder="Example: Why was my white stone captured?" required></textarea>
+                        <span id="question-count">0 / 220</span>
+                    </div>
+                    <button type="submit" class="nlp-analyze-button">ANALYZE QUESTION <span aria-hidden="true">→</span></button>
+                </form>
+
+                <div class="nlp-examples">
+                    <span>TRY AN EXAMPLE</span>
+                    <button type="button" data-question="What is a liberty?">What is a liberty?</button>
+                    <button type="button" data-question="Why was my stone captured?">Why was my stone captured?</button>
+                    <button type="button" data-question="How do I count territory and win?">How do I count territory?</button>
+                    <button type="button" data-question="为什么这里不能落子？">为什么这里不能落子？</button>
+                </div>
+            </div>
+
+            <section class="nlp-result-panel" id="intent-result" aria-live="polite" aria-atomic="true">
+                <div class="nlp-result-empty" id="result-empty">
+                    <span aria-hidden="true">?</span>
+                    <p>WAITING FOR A QUESTION</p>
+                    <small>The reasoning trace will appear here.</small>
+                </div>
+
+                <div class="nlp-result-content" id="result-content" hidden>
+                    <div class="nlp-result-topline"><span>PREDICTED INTENT</span><b id="result-strength">—</b></div>
+                    <h2 id="result-intent">—</h2>
+                    <p id="result-description">—</p>
+
+                    <dl class="nlp-trace">
+                        <div><dt>NORMALIZED TEXT</dt><dd id="result-normalized">—</dd></div>
+                        <div><dt>MATCHED SIGNALS</dt><dd id="result-signals">—</dd></div>
+                        <div><dt>RULE SCORE</dt><dd id="result-score">—</dd></div>
+                    </dl>
+
+                    <div class="nlp-score-chart" id="score-chart" aria-label="Scores for all intent categories"></div>
+                    <a id="result-route" class="primary-button" href="chapter1.html">OPEN RECOMMENDED LESSON <span aria-hidden="true">→</span></a>
+                </div>
+            </section>
+        </section>
+
+        <section class="nlp-method" aria-labelledby="method-title">
+            <div class="nlp-method-heading">
+                <span class="eyebrow">UNDER THE HOOD</span>
+                <h2 id="method-title">A small baseline.<br>A visible reasoning trail.</h2>
+                <p>This prototype favors transparency over pretending to be a trained model. Every classification can be inspected and explained.</p>
+            </div>
+
+            <div class="nlp-method-grid">
+                <article><span>01</span><h3>Normalize</h3><p>Lowercase Latin text, remove punctuation, and collapse repeated spaces while preserving Chinese characters.</p></article>
+                <article><span>02</span><h3>Weight Signals</h3><p>Domain phrases and keywords contribute different scores to six Go-learning intent categories.</p></article>
+                <article><span>03</span><h3>Route Learners</h3><p>The highest-scoring intent produces an explanation and links to the most relevant chapter.</p></article>
+            </div>
+
+            <aside class="nlp-limitations">
+                <strong>BASELINE LIMITATIONS</strong>
+                <p>No training data, embeddings, or semantic model are used. Ambiguous wording and unseen synonyms may fall back to “Uncertain.” A future version could replace the lexicon with a supervised classifier while preserving this interface as an interpretable baseline.</p>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span>© 2026 GO BEGINNING · NLP MINI LAB</span>
+        <span>RULE-BASED BASELINE · ENGLISH + 中文 SIGNALS</span>
+    </footer>
+
+    <script>
+        (() => {
+            const intents = [
+                {
+                    id: 'board', label: 'BOARD BASICS', route: 'chapter1.html',
+                    description: 'The question is about the Go board, intersections, stones, or basic placement.',
+                    terms: [['go board', 4], ['board size', 4], ['star point', 4], ['intersection', 3], ['place a stone', 3], ['board', 2], ['stone', 1], ['棋盘', 3], ['交叉点', 4], ['星位', 4], ['落子位置', 3]]
+                },
+                {
+                    id: 'liberties', label: 'LIBERTIES', route: 'chapter2.html#liberty-board',
+                    description: 'The question concerns the empty adjacent intersections that keep stones or groups alive.',
+                    terms: [['what is a liberty', 5], ['empty intersection', 3], ['last liberty', 4], ['liberties', 4], ['liberty', 4], ['breathe', 2], ['breath', 2], ['alive', 1], ['气是什么', 5], ['没有气', 4], ['气', 3], ['空交叉点', 4], ['存活', 2]]
+                },
+                {
+                    id: 'capturing', label: 'CAPTURING', route: 'chapter2.html#capture-board',
+                    description: 'The question is about surrounding stones, removing their final liberty, or captures.',
+                    terms: [['why was my stone captured', 6], ['how to capture', 5], ['surrounded', 3], ['captured', 4], ['capturing', 4], ['capture', 3], ['removed', 2], ['disappear', 3], ['吃子', 5], ['提子', 5], ['被吃', 5], ['包围', 3], ['消失', 3]]
+                },
+                {
+                    id: 'scoring', label: 'SCORING & VICTORY', route: 'chapter3.html#outcome-title',
+                    description: 'The question asks how territory, komi, passing, victory, or the final score works.',
+                    terms: [['how to win', 5], ['who wins', 5], ['count territory', 5], ['final score', 4], ['scoring', 4], ['score', 3], ['territory', 3], ['komi', 4], ['winner', 3], ['win', 2], ['lose', 2], ['pass', 2], ['怎么赢', 5], ['怎么算赢', 6], ['计分', 4], ['胜负', 4], ['领地', 3], ['贴目', 4], ['停一手', 3]]
+                },
+                {
+                    id: 'rules', label: 'RULES & LEGAL MOVES', route: 'chapter3.html#play-board',
+                    description: 'The question concerns whether a move is legal, including occupied points, suicide, or ko.',
+                    terms: [["can't play", 5], ['cannot play', 5], ['illegal move', 5], ['legal move', 4], ['why not play', 4], ['forbidden', 3], ['occupied', 3], ['suicide', 4], ['ko rule', 5], ['ko', 3], ['不能落子', 6], ['不合法', 5], ['禁入点', 5], ['自杀', 4], ['劫', 3], ['被占用', 3]]
+                },
+                {
+                    id: 'practice', label: 'PRACTICE & STRATEGY', route: 'chapter3.html#play-board',
+                    description: 'The question asks how to practice, improve, plan, or begin playing.',
+                    terms: [['how to practice', 5], ['first move', 4], ['get better', 4], ['improve', 3], ['practice', 3], ['strategy', 3], ['train', 2], ['opening', 2], ['怎么练习', 5], ['第一步', 3], ['提高', 3], ['练习', 3], ['策略', 3], ['训练', 2]]
+                }
+            ];
+
+            const form = document.getElementById('intent-form');
+            const input = document.getElementById('go-question');
+            const counter = document.getElementById('question-count');
+            const emptyState = document.getElementById('result-empty');
+            const content = document.getElementById('result-content');
+
+            function normalize(text) {
+                return text.toLowerCase()
+                    .replace(/[’‘]/g, "'")
+                    .replace(/[^a-z0-9\u3400-\u9fff'\s]/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
+
+            function containsTerm(text, term) {
+                const normalizedTerm = normalize(term);
+                if (/^[a-z0-9' ]+$/.test(normalizedTerm)) {
+                    const escaped = normalizedTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    return new RegExp(`(?:^|\\s)${escaped}(?:$|\\s)`, 'i').test(text);
+                }
+                return text.includes(normalizedTerm);
+            }
+
+            function classify(rawText) {
+                const text = normalize(rawText);
+                const results = intents.map(intent => {
+                    const matched = intent.terms.filter(([term]) => containsTerm(text, term));
+                    return { ...intent, matched, score: matched.reduce((sum, [, weight]) => sum + weight, 0) };
+                }).sort((a, b) => b.score - a.score);
+                return { text, results, winner: results[0] };
+            }
+
+            function strength(score) {
+                if (score >= 8) return 'STRONG MATCH';
+                if (score >= 4) return 'MEDIUM MATCH';
+                if (score > 0) return 'WEAK MATCH';
+                return 'NO MATCH';
+            }
+
+            function render(rawText) {
+                const { text, results, winner } = classify(rawText);
+                const isFallback = !winner || winner.score === 0;
+                emptyState.hidden = true;
+                content.hidden = false;
+
+                document.getElementById('result-strength').textContent = isFallback ? 'FALLBACK' : strength(winner.score);
+                document.getElementById('result-intent').textContent = isFallback ? 'UNCERTAIN' : winner.label;
+                document.getElementById('result-description').textContent = isFallback
+                    ? 'No known Go-learning signal was found. Try mentioning the board, liberties, capturing, scoring, legal moves, or practice.'
+                    : winner.description;
+                document.getElementById('result-normalized').textContent = text || '—';
+                document.getElementById('result-signals').textContent = isFallback
+                    ? 'No weighted signals matched.'
+                    : [...new Set(winner.matched.map(([term]) => term))].join(' · ');
+                document.getElementById('result-score').textContent = isFallback ? '0 points' : `${winner.score} weighted points · ${strength(winner.score).toLowerCase()}`;
+
+                const route = document.getElementById('result-route');
+                route.href = isFallback ? 'chapter1.html' : winner.route;
+                route.innerHTML = `${isFallback ? 'OPEN LEARNING CENTER' : 'OPEN RECOMMENDED LESSON'} <span aria-hidden="true">→</span>`;
+
+                const maxScore = Math.max(1, ...results.map(item => item.score));
+                document.getElementById('score-chart').innerHTML = results.map(item => `
+                    <div class="nlp-score-row">
+                        <span>${item.label}</span>
+                        <i><b style="width:${Math.round((item.score / maxScore) * 100)}%"></b></i>
+                        <strong>${item.score}</strong>
+                    </div>
+                `).join('');
+            }
+
+            input.addEventListener('input', () => { counter.textContent = `${input.value.length} / 220`; });
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                if (!input.value.trim()) { input.focus(); return; }
+                render(input.value);
+            });
+
+            document.querySelectorAll('[data-question]').forEach(button => {
+                button.addEventListener('click', () => {
+                    input.value = button.dataset.question;
+                    counter.textContent = `${input.value.length} / 220`;
+                    render(input.value);
+                    input.focus();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
