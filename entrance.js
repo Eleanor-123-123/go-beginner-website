@@ -12,6 +12,7 @@
 
     function closeIntro() {
         if (hasClosed) return;
+
         hasClosed = true;
         window.clearTimeout(closeTimer);
         window.removeEventListener('keydown', onKeydown);
@@ -27,10 +28,7 @@
     }
 
     document.body.classList.add('site-intro-active');
-
-    window.requestAnimationFrame(() => {
-        intro.classList.add('is-playing');
-    });
+    window.requestAnimationFrame(() => intro.classList.add('is-playing'));
 
     closeTimer = window.setTimeout(closeIntro, reduceMotion ? 900 : 4600);
     skipButton.addEventListener('click', closeIntro);
@@ -41,4 +39,3 @@
 
     window.addEventListener('keydown', onKeydown);
 })();
-

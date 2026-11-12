@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Ask the bilingual AI Go Tutor questions about liberties, capturing, rules, scoring, and beginner strategy.">
-    <title>Chapter 04 | AI Go Tutor</title>
+    <meta name="description" content="Choose a Go topic that still feels unclear and return to the matching beginner lesson.">
+    <title>Chapter 04 | Review Guide</title>
     <link rel="stylesheet" href="style.css">
-    <script src="ai-tutor.js" defer></script>
+    <script src="review-guide.js" defer></script>
 </head>
-<body class="ai-tutor-body" data-api-base="http://127.0.0.1:8000">
-    <a class="skip-link" href="#ai-tutor-main">Skip to AI tutor</a>
+<body class="ai-tutor-body">
+    <a class="skip-link" href="#review-guide-main">Skip to review guide</a>
 
     <header class="site-header">
         <a href="index.html" class="header-logo" aria-label="GO BEGINNING home">
@@ -24,93 +24,92 @@
             <a href="chapter1.html" class="chapter-tab"><span>01</span> Understanding Go</a>
             <a href="chapter2.html" class="chapter-tab"><span>02</span> Liberties &amp; Capturing</a>
             <a href="chapter3.html" class="chapter-tab"><span>03</span> Practice Board</a>
-            <a href="chapter4.html" class="chapter-tab active" aria-current="page"><span>04</span> AI Go Tutor</a>
+            <a href="chapter4.html" class="chapter-tab active" aria-current="page"><span>04</span> Review Guide</a>
         </nav>
 
         <nav class="main-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
             <a href="chapter1.html">Learning Center</a>
-            <a href="chapter4.html" class="active" aria-current="page">AI Tutor</a>
+            <a href="chapter4.html" class="active" aria-current="page">Review Guide</a>
             <a href="about.html">About</a>
         </nav>
     </header>
 
-    <main id="ai-tutor-main" class="ai-tutor-page">
-        <section class="ai-tutor-hero" aria-labelledby="ai-tutor-title">
+    <main id="review-guide-main" class="ai-tutor-page">
+        <section class="ai-tutor-hero" aria-labelledby="review-guide-title">
             <div class="ai-tutor-hero-copy">
-                <p class="ai-tutor-kicker"><span></span> CHAPTER 04 · ASK THE BOARD</p>
-                <h1 id="ai-tutor-title">YOUR NEXT MOVE<br>HAS A <em>VOICE.</em></h1>
-                <p>Ask a Go question in English or Chinese. Your personal tutor will explain the idea, connect it to the lesson, and help you see one move further.</p>
+                <p class="ai-tutor-kicker"><span></span> CHAPTER 04 · REVIEW YOUR PATH</p>
+                <h1 id="review-guide-title">FIND THE GAP.<br>RETURN <em>STRONGER.</em></h1>
+                <p>Not every idea becomes clear on the first try. Choose the part of Go that still feels uncertain, read a quick reminder, and return to the exact lesson you need.</p>
             </div>
-            <div class="ai-tutor-hero-note" aria-label="Tutor capabilities">
-                <strong>ONE QUESTION.<br>ONE CLEAR ANSWER.</strong>
-                <span>中英双语 · BEGINNER FRIENDLY</span>
+            <div class="ai-tutor-hero-note" aria-label="Review guide purpose">
+                <strong>CHOOSE.<br>REVIEW. RETURN.</strong>
+                <span>LESSON FOCUSED · BEGINNER FRIENDLY</span>
             </div>
         </section>
 
-        <section class="ai-chat-shell" aria-labelledby="chat-title">
+        <section class="ai-chat-shell review-guide-shell" aria-labelledby="review-chat-title">
             <header class="ai-chat-header">
                 <div class="ai-chat-identity">
-                    <div class="ai-bot-mark" aria-hidden="true"><span></span><i></i><b></b></div>
+                    <div class="review-guide-mark" aria-hidden="true"><span>?</span></div>
                     <div>
-                        <h2 id="chat-title">AI Go Tutor</h2>
-                        <p>Your personal Go learning assistant</p>
+                        <h2 id="review-chat-title">Go Review Guide</h2>
+                        <p>Tell the board which idea you want to revisit</p>
                     </div>
                 </div>
                 <div class="ai-chat-tools">
-                    <span class="ai-mode-badge" id="ai-mode-badge"><i></i> CHECKING MODE</span>
-                    <button class="ai-clear-button" id="ai-clear-button" type="button">NEW CHAT</button>
+                    <span class="ai-mode-badge is-live"><i></i> READY TO REVIEW</span>
+                    <button class="ai-clear-button" id="review-reset-button" type="button">START AGAIN</button>
                 </div>
             </header>
 
-            <div class="ai-suggestion-row" aria-label="Example questions">
-                <button type="button" data-ai-prompt="What is a liberty in Go?">WHAT IS A LIBERTY?</button>
-                <button type="button" data-ai-prompt="Why was my black stone captured?">WHY WAS I CAPTURED?</button>
-                <button type="button" data-ai-prompt="围棋最后怎么计算胜负？">怎么计算胜负？</button>
-                <button type="button" data-ai-prompt="How should a beginner practice on a 9x9 board?">HOW SHOULD I PRACTICE?</button>
-            </div>
-
-            <div class="ai-chat-log" id="ai-chat-log" aria-live="polite" aria-label="Conversation">
+            <div class="ai-chat-log" id="review-chat-log" aria-live="polite" aria-label="Review conversation">
                 <article class="ai-message ai-message--assistant">
                     <div class="ai-message-avatar" aria-hidden="true">●</div>
                     <div class="ai-message-content">
-                        <span class="ai-message-name">AI GO TUTOR</span>
+                        <span class="ai-message-name">GO REVIEW GUIDE</span>
                         <div class="ai-message-bubble">
-                            <p>Welcome, challenger. Ask me about the board, liberties, capturing, legal moves, scoring, or your next practice plan.</p>
+                            <p>Which part of your journey is still unclear? Choose one topic below. I will give you a quick reminder and point you back to the right lesson.</p>
                         </div>
                     </div>
                 </article>
             </div>
 
-            <form class="ai-composer" id="ai-chat-form">
-                <label for="ai-question">Ask the AI Go Tutor</label>
-                <div class="ai-composer-box">
-                    <textarea id="ai-question" maxlength="600" rows="2" placeholder="Ask a Go question in English or Chinese…" required></textarea>
-                    <div class="ai-composer-footer">
-                        <span><b id="ai-character-count">0</b> / 600 · CTRL + ENTER TO SEND</span>
-                        <button type="submit" id="ai-send-button">SEND <span aria-hidden="true">↗</span></button>
-                    </div>
+            <div class="review-topic-panel" aria-labelledby="review-topic-title">
+                <div class="review-topic-heading">
+                    <p class="home-section-label">CHOOSE YOUR QUESTION</p>
+                    <h3 id="review-topic-title">What do you want to understand better?</h3>
                 </div>
-            </form>
 
-            <p class="ai-chat-disclaimer">AI explanations can be incomplete. Check important rules against the lesson pages or a teacher.</p>
+                <div class="review-topic-grid">
+                    <button class="review-topic-card" type="button" data-review-topic="board">
+                        <b>01</b><span><strong>Board &amp; Intersections</strong><small>Where do stones go?</small></span><i aria-hidden="true">→</i>
+                    </button>
+                    <button class="review-topic-card" type="button" data-review-topic="liberties">
+                        <b>02</b><span><strong>Liberties</strong><small>How do stones breathe?</small></span><i aria-hidden="true">→</i>
+                    </button>
+                    <button class="review-topic-card" type="button" data-review-topic="capturing">
+                        <b>03</b><span><strong>Capturing</strong><small>Why was my stone removed?</small></span><i aria-hidden="true">→</i>
+                    </button>
+                    <button class="review-topic-card" type="button" data-review-topic="practice">
+                        <b>04</b><span><strong>Practice Board</strong><small>How should I train?</small></span><i aria-hidden="true">→</i>
+                    </button>
+                    <button class="review-topic-card" type="button" data-review-topic="outcome">
+                        <b>05</b><span><strong>Winning &amp; Losing</strong><small>How does the game end?</small></span><i aria-hidden="true">→</i>
+                    </button>
+                    <button class="review-topic-card" type="button" data-review-topic="everything">
+                        <b>06</b><span><strong>Start From the Beginning</strong><small>I want to review everything.</small></span><i aria-hidden="true">→</i>
+                    </button>
+                </div>
+            </div>
+
+            <p class="review-guide-note">There is no wrong choice. Strong players return to the basics whenever the board stops making sense.</p>
         </section>
-
     </main>
 
     <footer class="site-footer">
         <span>© 2026 GO BEGINNING · CHAPTER 04</span>
-        <span>AI GO TUTOR · LEARN SLOWLY. ASK BOLDLY.</span>
+        <span>REVIEW GUIDE · FIND THE GAP. RETURN STRONGER.</span>
     </footer>
-
-    <template id="ai-typing-template">
-        <article class="ai-message ai-message--assistant ai-message--typing">
-            <div class="ai-message-avatar" aria-hidden="true">●</div>
-            <div class="ai-message-content">
-                <span class="ai-message-name">AI GO TUTOR</span>
-                <div class="ai-message-bubble"><span></span><span></span><span></span></div>
-            </div>
-        </article>
-    </template>
 </body>
 </html>
