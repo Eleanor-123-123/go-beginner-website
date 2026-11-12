@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GO BEGINNING is a visual, beginner-friendly path into the game of Go.">
+    <title>GO BEGINNING | Building New Paths</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/app-icon-180.png">
+    <link rel="stylesheet" href="style.css">
+    <script>document.documentElement.classList.add('intro-js');</script>
+    <script src="script.js" defer></script>
+    <script src="entrance.js" defer></script>
+</head>
+<body class="home-page-body">
+    <a class="skip-link" href="#home-page">Skip to content</a>
+    <section class="site-intro" id="site-intro" role="dialog" aria-modal="true" aria-labelledby="site-intro-title">
+        <div class="site-intro-grid" aria-hidden="true"></div>
+        <div class="site-intro-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="site-intro-confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="site-intro-copy">
+            <p>GO BEGINNING</p>
+            <h1 id="site-intro-title">WELCOME TO THE<br>WORLD OF GO</h1>
+            <span aria-hidden="true"></span>
+        </div>
+        <button class="site-intro-skip" id="site-intro-skip" type="button">SKIP INTRO <span aria-hidden="true">→</span></button>
+    </section>
+    <header class="site-header">
+        <a href="index.html" class="header-logo" aria-label="GO BEGINNING home"><div class="logo-icon" aria-hidden="true">▲</div><div class="logo-text"><span class="brand-name">GO BEGINNING</span><span class="brand-tagline">BUILDING NEW PATHS</span></div></a>
+        <nav class="header-chapter-nav" aria-label="Quick chapter navigation">
+            <a href="chapter1.html" class="chapter-tab"><span>01</span> Understanding Go</a>
+            <a href="chapter2.html" class="chapter-tab"><span>02</span> Liberties &amp; Capturing</a>
+            <a href="chapter3.html" class="chapter-tab"><span>03</span> Practice Board</a>
+            <a href="chapter4.html" class="chapter-tab"><span>04</span> Review Guide</a>
+        </nav>
+        <nav class="main-nav" aria-label="Main navigation"><a href="index.html" class="active" aria-current="page">Home</a><a href="#course-section">Learning Center</a><a href="chapter4.html">Review Guide</a><a href="about.html">About</a></nav>
+    </header>
+    <main id="home-page">
+        <section class="home-hero" aria-labelledby="home-title">
+            <div class="home-hero-copy">
+                <p class="home-kicker">A VISUAL BEGINNER'S PATH INTO GO</p>
+                <h1 id="home-title">ONE STONE.<br><em>ENDLESS</em> POSSIBILITIES.</h1>
+                <p class="home-intro">Go is a conversation written on a board. Learn its first ideas, see every move clearly, and find your own way across 361 intersections.</p>
+                <div class="home-actions"><a href="chapter1.html" class="primary-button">START LEARNING <span aria-hidden="true">→</span></a><a href="#course-section" class="secondary-button">EXPLORE CHAPTERS <span aria-hidden="true">↓</span></a></div>
+                <p class="home-note"><span></span> NO EXPERIENCE REQUIRED</p>
+            </div>
+            <div class="home-hero-art">
+                <img src="assets/go-manga-hero-original.png" alt="An original black-and-white manga-style scene of a focused player placing a stone on a Go board.">
+                <span class="home-sound" aria-hidden="true">CLACK!</span><span class="home-stamp" aria-hidden="true">LEARN THE<br>LANGUAGE<br>OF GO</span>
+            </div>
+        </section>
+        <div class="home-ticker" aria-hidden="true"><div><span>SEE THE BOARD</span><span>MAKE A MOVE</span><span>BUILD A GROUP</span><span>FIND A NEW PATH</span><span>SEE THE BOARD</span><span>MAKE A MOVE</span><span>BUILD A GROUP</span><span>FIND A NEW PATH</span></div></div>
+        <section class="home-story" aria-labelledby="first-principle">
+            <div class="home-story-copy"><p class="home-section-label">THE FIRST PRINCIPLE</p><h2 id="first-principle">It begins with an <mark>empty</mark> board.</h2><p>There are no pieces to memorize and no hidden rules to unlock. Start by learning where a stone goes, then watch simple patterns become a living game.</p><blockquote>“A move is small. Its direction can be enormous.”</blockquote></div>
+            <div class="home-demo-wrap"><div class="home-demo-meta"><span>THE BOARD IS SPEAKING</span><span><i></i>AUTO DEMO</span></div><div class="home-demo-board" role="img" aria-label="An automatic nine by nine Go board demonstration showing alternating black and white stones."><span class="home-move-tag">MOVE <b id="home-move-count">01</b> / 08</span><div id="home-stones"></div></div></div>
+        </section>
+        <section class="course-section home-course" id="course-section" aria-labelledby="course-title">
+            <div class="home-course-heading"><div><p class="home-section-label">YOUR ROUTE</p><h2 id="course-title">Four chapters.<br>One <mark>new way</mark> to see.</h2></div><p>Short, visual lessons take you from the board's basics to your first purposeful move—and a review guide that helps you revisit anything still unclear.</p></div>
+            <div class="home-course-grid">
+                <article class="home-course-card"><div><span>CHAPTER 01</span><h3>Understanding<br>Go</h3><p>Meet the board, the stones, intersections, and star points.</p></div><a href="chapter1.html" aria-label="Open Chapter 1: Understanding Go">→</a></article>
+                <article class="home-course-card home-course-card--dark"><div><span>CHAPTER 02</span><h3>Liberties &amp;<br>Capturing</h3><p>See how stones breathe, connect, surround, and disappear.</p></div><a href="chapter2.html" aria-label="Open Chapter 2: Liberties and Capturing">→</a></article>
+                <article class="home-course-card home-course-card--gold"><div><span>CHAPTER 03</span><h3>Practice<br>Board</h3><p>Put your first ideas into motion on an interactive board.</p></div><a href="chapter3.html" aria-label="Open Chapter 3: Practice Board">→</a></article>
+                <article class="home-course-card home-course-card--ai"><div><span>CHAPTER 04</span><h3>Review &amp;<br>Return</h3><p>Choose the idea that still feels unclear, then jump back to the right lesson.</p></div><a href="chapter4.html" aria-label="Open Chapter 4: Review Guide">→</a></article>
+            </div>
+        </section>
+        <section class="home-closing" aria-labelledby="closing-title"><div><p class="home-section-label">YOUR FIRST STONE IS WAITING</p><h2 id="closing-title">Every path starts<br>at an intersection.</h2><p>Take the first step. The board will meet you there.</p><a href="chapter1.html" class="primary-button">BEGIN CHAPTER 01 <span aria-hidden="true">→</span></a></div></section>
+    </main>
+    <footer class="site-footer"><span>© 2026 GO BEGINNING · BUILDING NEW PATHS</span><span><a href="about.html">ABOUT THIS PROJECT</a> · LEARN SLOWLY. PLAY DEEPLY.</span></footer>
+    <script>
+      (() => {
+        const positions = [[50,50,'black'],[37.5,50,'white'],[62.5,50,'black'],[50,37.5,'white'],[50,62.5,'black'],[37.5,37.5,'white'],[62.5,62.5,'black'],[62.5,37.5,'white']];
+        const board = document.getElementById('home-stones'); const count = document.getElementById('home-move-count'); if (!board || !count) return;
+        positions.forEach(([x,y,color]) => { const stone = document.createElement('span'); stone.className = `home-demo-stone ${color}`; stone.style.left = `${x}%`; stone.style.top = `${y}%`; board.appendChild(stone); });
+        const stones = [...board.children]; let move = 0; const play = () => { stones.forEach((stone,index) => stone.classList.toggle('is-visible', index <= move)); count.textContent = String(move + 1).padStart(2, '0'); move = move === stones.length - 1 ? 0 : move + 1; }; play(); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) window.setInterval(play, 1150);
+      })();
+    </script>
+</body>
+</html>
