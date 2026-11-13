@@ -5444,3 +5444,38 @@ button:focus-visible {
 
     .legacy-particle { display: none; }
 }
+
+/* About page: concise project artwork disclosure. */
+.about-visual-note {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.3fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+    margin-top: 30px;
+    padding: 22px 24px;
+    color: var(--paper, #f5f1e8);
+    background: var(--dark-header, #111113);
+    border: 2px solid var(--dark-header, #111113);
+    box-shadow: 8px 8px 0 var(--gold, #cfa12c);
+}
+
+.about-visual-note .eyebrow {
+    margin: 0;
+    color: var(--gold, #cfa12c);
+}
+
+.about-visual-note p {
+    margin: 0;
+    color: inherit;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+@media (max-width: 560px) {
+    .about-visual-note {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 18px;
+        box-shadow: 5px 5px 0 var(--gold, #cfa12c);
+    }
+}
